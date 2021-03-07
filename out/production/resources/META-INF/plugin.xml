@@ -1,0 +1,39 @@
+<idea-plugin>
+    <id>FacerPlugin.FacerPlugin</id>
+    <name>FACER</name>
+    <vendor email="some@yourcompany.com" url="http://www.some.com">some</vendor>
+
+    <!--<description><![CDATA[-->
+    <!--Enter short description for your plugin here.<br>-->
+    <!--<em>most HTML tags may be used</em>-->
+    <!--]]></description>-->
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+
+    <actions>
+        <group id="FACER.TopMenu"
+               text="_FACER"
+               description="FACER Plugin">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action id="myAction"
+                    class="myAction"
+                    text="Enable FACER"
+                    description="myAction">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl 1"/>
+
+            </action>
+        </group>
+    </actions>
+
+
+
+</idea-plugin>
