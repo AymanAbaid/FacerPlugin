@@ -17,9 +17,15 @@ dependencies {
 }
 
 intellij {
-    version '2018.3.6'
-//    alternativeIdePath "/Applications/Android Studio.app"
+    version '2020.1.4'
+//    alternativeIdePath' C:/Program Files/Android/Android Studio/'
 }
+
+runIde{
+    ideDirectory 'C:/Program Files/Android/Android Studio/'
+}
+
+
 
 
 //intellij {
