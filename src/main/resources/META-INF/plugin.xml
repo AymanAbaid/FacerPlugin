@@ -21,10 +21,10 @@
                text="_FACER"
                description="FACER Plugin">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="myAction"
-                    class="myAction"
+            <action id="QuerySearchAction"
+                    class="QuerySearchAction"
                     text="Enable FACER"
-                    description="myAction">
+                    description="QuerySearchAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl 1"/>
 
             </action>
@@ -35,5 +35,6 @@
         <toolWindow id="FACER" anchor="left" factoryClass="FACERTWFactory" doNotActivateOnStart="true"/>
 
     </extensions>
+
 
 </idea-plugin>
