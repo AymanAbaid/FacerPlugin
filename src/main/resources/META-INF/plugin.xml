@@ -31,5 +31,9 @@
         </group>
     </actions>
 
+    <extensions  defaultExtensionNs="com.intellij">
+        <toolWindow id="FACER" anchor="left" factoryClass="FACERTWFactory" doNotActivateOnStart="true"/>
+
+    </extensions>
 
 </idea-plugin>
