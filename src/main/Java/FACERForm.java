@@ -7,8 +7,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-
-// File Name: FACERForm.java
 public class FACERForm {
 
     private JPanel mainPanel;
@@ -23,7 +21,7 @@ public class FACERForm {
     private FACERForm() {
         recommendationsList.addMouseListener(getMethodsListMouseAdapter());
         relatedMethodsList.addMouseListener(getMethodsListMouseAdapter());
-//        codeViewer.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+        codeViewer.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         codeViewer.removeAll();
     }
 
