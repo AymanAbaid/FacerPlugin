@@ -18,7 +18,6 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
         System.out.println("FACER invoked");
         projectRef = e.getProject();
         final Editor editor = e.getData(CommonDataKeys.EDITOR);
-        String selectedText = editor.getSelectionModel().getSelectedText();
         GetRecommendationsPopup.display(editor, this);
     }
 
