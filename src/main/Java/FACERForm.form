@@ -25,7 +25,7 @@
               <splitpane position="left"/>
             </constraints>
             <properties/>
-            <border type="none" title="Search Results"/>
+            <border type="none" title=""/>
             <children>
               <splitpane id="d18f7">
                 <constraints>
