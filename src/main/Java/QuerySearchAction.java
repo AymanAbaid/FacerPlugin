@@ -7,7 +7,6 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class QuerySearchAction extends AnAction implements GetRecommendations{
@@ -27,6 +26,8 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
 
     @Override
     public void getRecommendationsForQuery(String query) {
+        if(query == null)
+            return;
         ToolWindow toolWindow = ToolWindowManager.getInstance(projectRef).getToolWindow(getToolWindowId());
         toolWindow.show();
         ArrayList recommendationsForQuery = FACERSearchService.getInstance().getRecommendationsForQuery(query);
@@ -38,45 +39,4 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
     public void update(AnActionEvent e) {
 
     }
-
-    public void openTab(AnActionEvent e){
-//        this.inputFile = inputFile;
-//        VirtualFile.
-//        VirtualFile.createChildData().contentsToByteArray("dfsf");
-//                .setBinaryContent();
-    }
-
-    public void getRelatedMethods(String query) {
-
-        List results=new List(5);
-        results.setBounds(100,100, 75,75);
-        results.add(query);
-        results.add(query);
-        results.add(query);
-        results.add(query);
-        results.add(query);
-        createToolWindowForRelatedMethods(results);
-    }
-
-    private void createToolWindowForQuerySearch(List results) {
-        ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(projectRef);
-        ToolWindow toolWindow = toolWindowManager.getToolWindow(getToolWindowId());
-
-//        toolWindow.setIcon(getToolWindowIcon());
-//        new ToolWindowFactory.FacerToolWindowFactory().createToolWindowContent(project, toolWindow);
-        new ResultsTWFactory().createToolWindowContentForQuerySearch(projectRef, toolWindow, results);
-
-        toolWindow.show();
-    }
-
-    private void createToolWindowForRelatedMethods(List results) {
-        ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(projectRef);
-        ToolWindow toolWindow = toolWindowManager.getToolWindow(getToolWindowId());
-
-//        toolWindow.setIcon(getToolWindowIcon());
-//        new ToolWindowFactory.FacerToolWindowFactory().createToolWindowContent(project, toolWindow);
-        new ResultsTWFactory().createToolWindowContentForRelatedMethods(projectRef, toolWindow, results);
-        toolWindow.show();
-    }
-
 }

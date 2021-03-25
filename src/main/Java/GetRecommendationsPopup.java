@@ -11,7 +11,7 @@ public class GetRecommendationsPopup {
 
         JBPopupFactory.getInstance().createListPopupBuilder(list)
                 .setTitle("FACER Actions")
-                .setItemChoosenCallback(() -> getRecommendationsCallback.getRecommendationsForQuery(list.getSelectedValue()))
+                .setItemChoosenCallback(() -> getRecommendationsCallback.getRecommendationsForQuery(editor.getSelectionModel().getSelectedText()))
                 .createPopup()
                 .showInBestPositionFor(editor);
     }
