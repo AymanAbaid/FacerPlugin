@@ -89,7 +89,7 @@ public class FACERForm {
         }
 
         JPanel tabPanel = new JPanel();
-        tabPanel.setLayout(new BoxLayout(tabPanel, BoxLayout.Y_AXIS));
+        tabPanel.setLayout(new BorderLayout());
 
         JButton getRelatedMethodsButton = new JButton(AllIcons.Diff.MagicResolve);
         getRelatedMethodsButton.setBorder(BorderFactory.createEmptyBorder());
@@ -138,8 +138,8 @@ public class FACERForm {
         optionsWrapper.add(copyMethodBodyButton);
         optionsWrapper.setBackground(Color.white);
 
-        tabPanel.add(optionsWrapper);
-        tabPanel.add(scrollableTextArea);
+        tabPanel.add(optionsWrapper, BorderLayout.NORTH);
+        tabPanel.add(scrollableTextArea, BorderLayout.CENTER);
 
         codeViewer.addTab(methodSignature, tabPanel);
         int index = codeViewer.indexOfTab(methodSignature);
