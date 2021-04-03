@@ -27,7 +27,7 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
     @Override
     public void getRecommendationsForQuery(String query) {
         if(query == null)
-            return;
+            new FACERErrorDialogWrapper("Error", "No text selected. Please select text for recommendations.").showAndGet();
         ToolWindow toolWindow = ToolWindowManager.getInstance(projectRef).getToolWindow(getToolWindowId());
         toolWindow.show();
         ArrayList recommendationsForQuery = FACERSearchService.getInstance().getRecommendationsForQuery(query);
