@@ -34,7 +34,8 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <dividerLocation value="100"/>
+                  <continuousLayout value="false"/>
+                  <dividerLocation value="150"/>
                   <dividerSize value="2"/>
                   <orientation value="0"/>
                 </properties>
@@ -46,7 +47,7 @@
                       <splitpane position="left"/>
                     </constraints>
                     <properties/>
-                    <border type="none"/>
+                    <border type="none" title="Query Methods"/>
                     <children>
                       <component id="a3396" class="javax.swing.JTextField" binding="filterRecommendations">
                         <constraints>
