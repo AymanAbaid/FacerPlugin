@@ -36,5 +36,10 @@
 
     </extensions>
 
+    <application-components>
+        <component>
+            <implementation-class>FACERConfigurationComponent</implementation-class>
+        </component>
+    </application-components>
 
 </idea-plugin>
