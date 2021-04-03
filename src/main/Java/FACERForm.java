@@ -49,21 +49,8 @@ public class FACERForm {
                 if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
                     // Double-click detected
                     int index = list.getSelectedIndex();
-                    showMethodBody(list.getSelectedValue().toString(),"@NotNull\n" +
-                            "    private MouseAdapter getMethodsListMouseAdapter() {\n" +
-                            "        return new MouseAdapter() {\n" +
-                            "            public void mouseClicked(MouseEvent evt) {\n" +
-                            "                JList list = (JList)evt.getSource();\n" +
-                            "                if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {\n" +
-                            "                    // Double-click detected\n" +
-                            "                    int index = list.getSelectedIndex();\n" +
-                            "                    showMethodBody(list.getSelectedValue().toString(),\"public void testSomething(){}\");\n" +
-                            "\n" +
-                            "                }\n" +
-                            "            }\n" +
-                            "        };\n" +
-                            "    }");
-
+                    Method queryMethod = FACERSearchService.getInstance().getQueryResultMethod(index);
+                    showMethodBody(queryMethod);
                 }
             }
         };
@@ -81,8 +68,9 @@ public class FACERForm {
         relatedMethodsList.setListData(results);
     }
 
-    public void showMethodBody(String methodSignature, String methodBody){
-        int existingTabIndex = codeViewer.indexOfTab(methodSignature);
+    public void showMethodBody(Method method){
+        String tabTitle = method.id + ": " + method.name;
+        int existingTabIndex = codeViewer.indexOfTab(tabTitle);
         if (existingTabIndex != -1){
             codeViewer.setSelectedIndex(existingTabIndex);
             return;
@@ -96,7 +84,7 @@ public class FACERForm {
         getRelatedMethodsButton.setPreferredSize(new Dimension(20,20));
         getRelatedMethodsButton.setToolTipText("Search related methods");
         getRelatedMethodsButton.addActionListener(evt -> {
-            ArrayList relatedMethods = FACERSearchService.getInstance().getRelatedMethods(methodSignature);
+            ArrayList relatedMethods = FACERSearchService.getInstance().getRelatedMethods(method.id);
             populateRelatedMethods(relatedMethods.toArray());
         });
 
@@ -111,25 +99,19 @@ public class FACERForm {
 
             // Work off of the primary caret to get the selection info
             Caret primaryCaret = editor.getCaretModel().getPrimaryCaret();
-            int start = primaryCaret.getSelectionStart();
             int end = primaryCaret.getSelectionEnd();
 
             // Replace the selection with a fixed string.
             // Must do this document change in a write action context.
             WriteCommandAction.runWriteCommandAction(project, () ->
-                    document.replaceString(start, end, methodBody)
+                    document.insertString(end, "\n" + method.body)
             );
 
             // De-select the text range that was just replaced
             primaryCaret.removeSelection();
-
-            // Copy to clipboard
-//            StringSelection stringSelection = new StringSelection(methodBody);
-//            Clipboard clpbrd = Toolkit.getDefaultToolkit ().getSystemClipboard ();
-//            clpbrd.setContents (stringSelection, null);
         });
 
-        JTextArea textArea = new JTextArea(methodBody);
+        JTextArea textArea = new JTextArea(method.body);
 //        textArea.setEditable(true);
         JScrollPane scrollableTextArea = new JBScrollPane(textArea);
 
@@ -141,12 +123,12 @@ public class FACERForm {
         tabPanel.add(optionsWrapper, BorderLayout.NORTH);
         tabPanel.add(scrollableTextArea, BorderLayout.CENTER);
 
-        codeViewer.addTab(methodSignature, tabPanel);
-        int index = codeViewer.indexOfTab(methodSignature);
+        codeViewer.addTab(tabTitle, tabPanel);
+        int index = codeViewer.indexOfTab(tabTitle);
 
         JPanel tabLabelPanel = new JPanel(new FlowLayout());
         tabLabelPanel.setOpaque(false);
-        JLabel lblTitle = new JLabel(methodSignature);
+        JLabel lblTitle = new JLabel(tabTitle);
 
         JButton btnClose = new JButton(AllIcons.Actions.Cancel);
         btnClose.setBorder(BorderFactory.createEmptyBorder());
