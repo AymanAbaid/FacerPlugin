@@ -28,8 +28,8 @@ public class FACERForm {
     private static FACERForm instance = null;
 
     private FACERForm() {
-        recommendationsList.addMouseListener(getMethodsListMouseAdapter());
-        relatedMethodsList.addMouseListener(getMethodsListMouseAdapter());
+        recommendationsList.addMouseListener(queryMethodsListMouseAdapter);
+        relatedMethodsList.addMouseListener(relatedMethodsListMouseAdapter);
         codeViewer.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         codeViewer.removeAll();
     }
@@ -42,19 +42,32 @@ public class FACERForm {
     }
 
     @NotNull
-    private MouseAdapter getMethodsListMouseAdapter() {
-        return new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                JList list = (JList)evt.getSource();
-                if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
-                    // Double-click detected
-                    int index = list.getSelectedIndex();
-                    Method queryMethod = FACERSearchService.getInstance().getQueryResultMethod(index);
-                    showMethodBody(queryMethod);
-                }
+    private MouseAdapter queryMethodsListMouseAdapter = new MouseAdapter() {
+        public void mouseClicked(MouseEvent evt) {
+            JList list = (JList)evt.getSource();
+            if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+//              event 2
+                // Double-click detected
+                int index = list.getSelectedIndex();
+                Method queryMethod = FACERSearchService.getInstance().getQueryResultMethod(index);
+                showMethodBody(queryMethod, false);
             }
-        };
-    }
+        }
+    };
+
+    @NotNull
+    private MouseAdapter relatedMethodsListMouseAdapter = new MouseAdapter() {
+        public void mouseClicked(MouseEvent evt) {
+            JList list = (JList)evt.getSource();
+            if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+                // event 6
+                // Double-click detected
+                int index = list.getSelectedIndex();
+                Method queryMethod = FACERSearchService.getInstance().getRelatedMethod(index);
+                showMethodBody(queryMethod, true);
+            }
+        }
+    };
 
     public JPanel getContent() {
         return mainPanel;
@@ -62,13 +75,15 @@ public class FACERForm {
 
     public void populateRecommendations(Object[] results) {
         recommendationsList.setListData(results);
+//      event 1: preferably call in response to ui populated listener callback
     }
 
     public void populateRelatedMethods(Object[] results) {
         relatedMethodsList.setListData(results);
+//      event 5: preferably call in response to ui populated listener callback
     }
 
-    public void showMethodBody(Method method){
+    public void showMethodBody(Method method, boolean isRelatedMethodSearch){
         String tabTitle = method.id + ": " + method.name;
         int existingTabIndex = codeViewer.indexOfTab(tabTitle);
         if (existingTabIndex != -1){
@@ -84,6 +99,7 @@ public class FACERForm {
         getRelatedMethodsButton.setPreferredSize(new Dimension(20,20));
         getRelatedMethodsButton.setToolTipText("Search related methods");
         getRelatedMethodsButton.addActionListener(evt -> {
+//      event 4
             ArrayList relatedMethods = FACERSearchService.getInstance().getRelatedMethods(method.id);
             populateRelatedMethods(relatedMethods.toArray());
         });
@@ -93,6 +109,8 @@ public class FACERForm {
         copyMethodBodyButton.setPreferredSize(new Dimension(20,20));
         copyMethodBodyButton.setToolTipText("Add code to my file");
         copyMethodBodyButton.addActionListener(evt -> {
+//            event 3
+//            event 7
             final Project project = ProjectUtil.guessCurrentProject(mainPanel);
             @Nullable Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
             Document document = editor.getDocument();

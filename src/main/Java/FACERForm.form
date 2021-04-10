@@ -47,7 +47,7 @@
                       <splitpane position="left"/>
                     </constraints>
                     <properties/>
-                    <border type="none" title="Query Methods"/>
+                    <border type="none"/>
                     <children>
                       <component id="a3396" class="javax.swing.JTextField" binding="filterRecommendations">
                         <constraints>
