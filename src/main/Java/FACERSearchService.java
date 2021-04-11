@@ -1,3 +1,4 @@
+import automated_evaluation.FACERStage2RelatedMethodsMaha;
 import com.google.gson.Gson;
 import methodsearch.StudentsEvaluatorStage1;
 import org.json.simple.JSONArray;
@@ -26,6 +27,7 @@ public class FACERSearchService   {
             JSONArray results = studentsEvaluator.searchFACERStage1Methods(query, 10, "jdbc:mysql://localhost/FACER_test?useSSL=false&user=root", "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\stopwords.txt", "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\LuceneSearchIndex");
             if (results != null) {
                 querySearchResults = new ArrayList();
+                relatedSearchResults = null;
                 int len = results.size();
                 for (int i = 0; i < len; i++){
                     Object methodJson = results.get(i);
@@ -41,19 +43,24 @@ public class FACERSearchService   {
     }
 
     public ArrayList getRelatedMethods(int methodId) {
-
-        ArrayList results = new ArrayList();
-        results.add("getMethodsListMouseAdapter");
-        results.add("getMethodsListMouseAdapter");
-        results.add("getMethodsListMouseAdapter");
-        results.add("getMethodsListMouseAdapter");
-        results.add("getMethodsListMouseAdapter");
-        results.add("getMethodsListMouseAdapter");
-        results.add("getMethodsListMouseAdapter");
-        results.add("getMethodsListMouseAdapter");
-        results.add("getMethodsListMouseAdapter");
-        results.add("getMethodsListMouseAdapter");
-        return results;
+        ArrayList methodNames = new ArrayList();
+        try {
+            FACERStage2RelatedMethodsMaha relatedMethodsEvaluator = new FACERStage2RelatedMethodsMaha();
+            JSONArray relatedMethods = relatedMethodsEvaluator.getRelatedMethods(methodId, 10, "jdbc:mysql://localhost/FACER_test?useSSL=false&user=root");
+            if (relatedMethods != null) {
+                relatedSearchResults = new ArrayList();
+                int len = relatedMethods.size();
+                for (int i = 0; i < len; i++){
+                    Object methodJson = relatedMethods.get(i);
+                    Method method = new Gson().fromJson(methodJson.toString(), Method.class);
+                    relatedSearchResults.add(method);
+                    methodNames.add(method.id + ": " + method.name);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return methodNames;
     }
 
     public Method getQueryResultMethod(int index) {
@@ -63,11 +70,10 @@ public class FACERSearchService   {
         return null;
     }
 
-    public String getRelatedMethodBody(int index) {
-        String methodBody = "";
-        if (relatedSearchResults.size() < index) {
-            return relatedSearchResults.get(index).body;
+    public Method getRelatedMethod(int index) {
+        if (index < relatedSearchResults.size()) {
+            return relatedSearchResults.get(index);
         }
-        return methodBody;
+        return null;
     }
 }

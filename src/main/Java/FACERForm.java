@@ -50,7 +50,9 @@ public class FACERForm {
                 // Double-click detected
                 int index = list.getSelectedIndex();
                 Method queryMethod = FACERSearchService.getInstance().getQueryResultMethod(index);
-                showMethodBody(queryMethod, false);
+                if (queryMethod != null) {
+                    showMethodBody(queryMethod, false);
+                }
             }
         }
     };
@@ -63,8 +65,10 @@ public class FACERForm {
                 // event 6
                 // Double-click detected
                 int index = list.getSelectedIndex();
-                Method queryMethod = FACERSearchService.getInstance().getRelatedMethod(index);
-                showMethodBody(queryMethod, true);
+                Method relatedMethod = FACERSearchService.getInstance().getRelatedMethod(index);
+                if (relatedMethod != null){
+                    showMethodBody(relatedMethod, true);
+                }
             }
         }
     };
@@ -76,6 +80,7 @@ public class FACERForm {
     public void populateRecommendations(Object[] results) {
         recommendationsList.setListData(results);
 //      event 1: preferably call in response to ui populated listener callback
+        relatedMethodsList.setListData(new Object[] {});
     }
 
     public void populateRelatedMethods(Object[] results) {
