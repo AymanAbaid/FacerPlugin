@@ -10,6 +10,7 @@ public class FACERSearchService   {
     private static FACERSearchService instance = null;
     private static ArrayList<Method> querySearchResults;
     private static ArrayList<Method> relatedSearchResults;
+    FACERConfigurationComponent configurationComponent = FACERConfigurationComponent.getInstance();
 
     private FACERSearchService() {}
 
@@ -24,7 +25,7 @@ public class FACERSearchService   {
         ArrayList methodNames = new ArrayList();
         try {
             StudentsEvaluatorStage1 studentsEvaluator = new StudentsEvaluatorStage1();
-            JSONArray results = studentsEvaluator.searchFACERStage1Methods(query, 10, "jdbc:mysql://localhost/FACER_test?useSSL=false&user=root", "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\stopwords.txt", "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\LuceneSearchIndex");
+            JSONArray results = studentsEvaluator.searchFACERStage1Methods(query, 10, configurationComponent.getDatabaseURL(), configurationComponent.getStopwordsPath(), configurationComponent.getLucenePath());
             if (results != null) {
                 querySearchResults = new ArrayList();
                 relatedSearchResults = null;
@@ -46,7 +47,7 @@ public class FACERSearchService   {
         ArrayList methodNames = new ArrayList();
         try {
             FACERStage2RelatedMethodsMaha relatedMethodsEvaluator = new FACERStage2RelatedMethodsMaha();
-            JSONArray relatedMethods = relatedMethodsEvaluator.getRelatedMethods(methodId, 10, "jdbc:mysql://localhost/FACER_test?useSSL=false&user=root");
+            JSONArray relatedMethods = relatedMethodsEvaluator.getRelatedMethods(methodId, 10, configurationComponent.getDatabaseURL());
             if (relatedMethods != null) {
                 relatedSearchResults = new ArrayList();
                 int len = relatedMethods.size();

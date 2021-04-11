@@ -14,10 +14,16 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
     Project projectRef = null;
     @Override
     public void actionPerformed(@NotNull final AnActionEvent e) {
+
+        FACERConfigurationComponent instance = FACERConfigurationComponent.getInstance();
+        if(!instance.isConfigured()){
+            new FACERConfigurationDialogWrapper().showAndGet();
+        } else {
 //      event 0
         projectRef = e.getProject();
         final Editor editor = e.getData(CommonDataKeys.EDITOR);
         GetRecommendationsPopup.display(editor, this);
+      }
     }
 
     private java.lang.String getToolWindowId() {

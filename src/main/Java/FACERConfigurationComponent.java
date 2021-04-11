@@ -14,8 +14,10 @@ class FACERConfigurationComponent implements PersistentStateComponent<FACERConfi
 
         public State state = new State();
 
-         static class State {
+        static class State {
                 public State() {}
+                public String databaseURL;
+                public String stopwordsPath;
                 public String lucenePath;
                 public boolean configured;
         }
@@ -33,16 +35,24 @@ class FACERConfigurationComponent implements PersistentStateComponent<FACERConfi
         @Nullable
         public static FACERConfigurationComponent getInstance() {
                 return ApplicationManager.getApplication().getComponent(FACERConfigurationComponent.class);
-
         }
-        public void setLucenePath(String lucenePath) {
+        public void updateConfigurations(String databaseURL, String stopwordsPath, String lucenePath) {
+                this.state.databaseURL = databaseURL;
+                this.state.stopwordsPath = stopwordsPath;
                 this.state.lucenePath = lucenePath;
+                this.state.configured = true;
         }
+
+        public String getDatabaseURL() { return this.state.databaseURL; }
         public String getLucenePath() {
                 return this.state.lucenePath;
+        }
+        public String getStopwordsPath() {
+                return this.state.stopwordsPath;
         }
         public boolean isConfigured() {
                 return this.state.configured;
         }
+
 
 }
