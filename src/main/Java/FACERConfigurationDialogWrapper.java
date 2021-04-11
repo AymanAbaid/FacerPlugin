@@ -5,7 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.util.List;
 
 public class FACERConfigurationDialogWrapper extends DialogWrapper {
 
@@ -144,33 +143,24 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
         if(configurationComponent.isConfigured()) {
             super.doCancelAction();
         } else {
-            showConfigurationCompleteError();
+            FACERErrorDialog.showConfigurationCompleteError("Configuration Incomplete","Please complete configuration to use FACER recommendations.");
         }
     }
 
     @Override
     protected void doOKAction() {
         if(databaseURL.getText().isEmpty() || stopwordsPath.getText().isEmpty() || luceneIndexPath.getText().isEmpty()){
-            showConfigurationCompleteError();
+            FACERErrorDialog.showConfigurationCompleteError("Configuration Incomplete","Please complete configuration to use FACER recommendations.");
         } else {
             configurationComponent.updateConfigurations(databaseURL.getText(), stopwordsPath.getText(), luceneIndexPath.getText());
             super.doOKAction();
         }
     }
 
-
     @Override
     public boolean shouldCloseOnCross() {
-        showConfigurationCompleteError();
+        FACERErrorDialog.showConfigurationCompleteError("Configuration Incomplete","Please complete configuration to use FACER recommendations.");
         return true;
     }
-
-    private void showConfigurationCompleteError() {
-        final JComponent[] inputs = new JComponent[]{
-                new JLabel("Please complete configuration to use FACER recommendations."),
-        };
-        JOptionPane.showMessageDialog(null, inputs, "Configuration Incomplete", JOptionPane.ERROR_MESSAGE);
-    }
-
 }
 
