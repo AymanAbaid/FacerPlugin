@@ -8,6 +8,7 @@ import com.intellij.openapi.wm.ToolWindowManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class QuerySearchAction extends AnAction implements GetRecommendations{
 
@@ -19,9 +20,12 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
         if(!instance.isConfigured()){
             new FACERConfigurationDialogWrapper().showAndGet();
         } else {
-//      event 0
         projectRef = e.getProject();
         final Editor editor = e.getData(CommonDataKeys.EDITOR);
+        //      event 0
+        String query_text = editor.getSelectionModel().getSelectedText();
+        if( query_text!= null)
+            EventLoggerService.getInstance().log(0, new ArrayList<String>(Arrays.asList("query_text:" + query_text )));
         GetRecommendationsPopup.display(editor, this);
       }
     }

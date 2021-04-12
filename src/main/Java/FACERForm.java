@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FACERForm {
 
@@ -24,6 +25,9 @@ public class FACERForm {
     private JTextField filterRelatedMethods;
     private JList relatedMethodsList;
     private JTabbedPane codeViewer;
+
+    private Method queryMethod;
+    private Method relatedMethod;
 
     private static FACERForm instance = null;
 
@@ -46,10 +50,15 @@ public class FACERForm {
         public void mouseClicked(MouseEvent evt) {
             JList list = (JList)evt.getSource();
             if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
-//              event 2
                 // Double-click detected
                 int index = list.getSelectedIndex();
-                Method queryMethod = FACERSearchService.getInstance().getQueryResultMethod(index);
+                queryMethod = FACERSearchService.getInstance().getQueryResultMethod(index);
+                //              event 2
+                EventLoggerService.getInstance().log(2,
+                        new ArrayList<String>(Arrays.asList(
+                                "method_id:" + queryMethod.id,
+                                "method_name:" + queryMethod.name,
+                                "rank:" + index)));
                 if (queryMethod != null) {
                     showMethodBody(queryMethod, false);
                 }
@@ -62,10 +71,15 @@ public class FACERForm {
         public void mouseClicked(MouseEvent evt) {
             JList list = (JList)evt.getSource();
             if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
-                // event 6
                 // Double-click detected
                 int index = list.getSelectedIndex();
-                Method relatedMethod = FACERSearchService.getInstance().getRelatedMethod(index);
+                relatedMethod = FACERSearchService.getInstance().getRelatedMethod(index);
+                // event 6
+                EventLoggerService.getInstance().log(6,
+                        new ArrayList<String>(Arrays.asList(
+                                "method_id:" + relatedMethod.id,
+                                "method_name:" + relatedMethod.name,
+                                "rank:"+index)));
                 if (relatedMethod != null){
                     showMethodBody(relatedMethod, true);
                 }
@@ -80,12 +94,27 @@ public class FACERForm {
     public void populateRecommendations(Object[] results) {
         recommendationsList.setListData(results);
 //      event 1: preferably call in response to ui populated listener callback
+        final Project project = ProjectUtil.guessCurrentProject(mainPanel);
+        @Nullable Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
+        String query_text = editor.getSelectionModel().getSelectedText();
+        if (query_text != null)
+            EventLoggerService.getInstance().log(1,
+                    new ArrayList<String>(Arrays.asList("query_text:" + query_text,
+                            "result_count:" + results.length)));
+
         relatedMethodsList.setListData(new Object[] {});
     }
 
     public void populateRelatedMethods(Object[] results) {
         relatedMethodsList.setListData(results);
-//      event 5: preferably call in response to ui populated listener callback
+        // event 5
+        if (queryMethod.id != 0 && queryMethod.name != null) {
+            EventLoggerService.getInstance().log(5,
+                    new ArrayList<String>(Arrays.asList(
+                            "method_id:" + queryMethod.id,
+                            "method_name:" + queryMethod.name,
+                            "result_count:" + results.length)));
+        }
     }
 
     public void showMethodBody(Method method, boolean isRelatedMethodSearch){
@@ -105,7 +134,15 @@ public class FACERForm {
         getRelatedMethodsButton.setToolTipText("Search related methods");
         getRelatedMethodsButton.addActionListener(evt -> {
 //      event 4
+            if (relatedMethod.id != 0 && relatedMethod.name != null) {
+                EventLoggerService.getInstance().log(5,
+                        new ArrayList<String>(Arrays.asList(
+                                "method_id:" + relatedMethod.id,
+                                "method_name:" + relatedMethod.name)));
+            }
+
             ArrayList relatedMethods = FACERSearchService.getInstance().getRelatedMethods(method.id);
+
             populateRelatedMethods(relatedMethods.toArray());
         });
 
@@ -115,7 +152,20 @@ public class FACERForm {
         copyMethodBodyButton.setToolTipText("Add code to my file");
         copyMethodBodyButton.addActionListener(evt -> {
 //            event 3
+            if (!isRelatedMethodSearch)
+            {
+                EventLoggerService.getInstance().log(3,
+                        new ArrayList<String>(Arrays.asList(
+                                "method_id:" + queryMethod.id,
+                                "method_name:" + queryMethod.name)));
+            }
+            else {
 //            event 7
+                EventLoggerService.getInstance().log(7,
+                        new ArrayList<String>(Arrays.asList(
+                                "method_id:" + relatedMethod.id,
+                                "method_name:" + relatedMethod.name)));
+            }
             final Project project = ProjectUtil.guessCurrentProject(mainPanel);
             @Nullable Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
             Document document = editor.getDocument();
