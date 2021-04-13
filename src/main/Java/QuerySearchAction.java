@@ -43,7 +43,7 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
             ToolWindow toolWindow = ToolWindowManager.getInstance(projectRef).getToolWindow(getToolWindowId());
             toolWindow.show();
             ArrayList recommendationsForQuery = FACERSearchService.getInstance().getRecommendationsForQuery(query);
-            FACERForm.getInstance().populateRecommendations(recommendationsForQuery.toArray());
+            FACERForm.getInstance().populateRecommendations(query, recommendationsForQuery.toArray());
         }
     }
 
