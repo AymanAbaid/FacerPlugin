@@ -19,7 +19,7 @@ class FACERConfigurationComponent implements PersistentStateComponent<FACERConfi
                 public String databaseURL;
                 public String stopwordsPath;
                 public String lucenePath;
-                public boolean configured;
+                public String logPath;
         }
 
         @Override
@@ -36,23 +36,27 @@ class FACERConfigurationComponent implements PersistentStateComponent<FACERConfi
         public static FACERConfigurationComponent getInstance() {
                 return ApplicationManager.getApplication().getComponent(FACERConfigurationComponent.class);
         }
-        public void updateConfigurations(String databaseURL, String stopwordsPath, String lucenePath) {
+        public void updateConfigurations(String databaseURL, String stopwordsPath, String lucenePath, String logPath) {
                 this.state.databaseURL = databaseURL;
                 this.state.stopwordsPath = stopwordsPath;
                 this.state.lucenePath = lucenePath;
-                this.state.configured = true;
+                this.state.logPath = logPath;
         }
 
         public String getDatabaseURL() { return this.state.databaseURL; }
-        public String getLucenePath() {
-                return this.state.lucenePath;
-        }
         public String getStopwordsPath() {
                 return this.state.stopwordsPath;
         }
+        public String getLucenePath() { return this.state.lucenePath; }
+        public String getLogFilePath() { return this.state.logPath; }
         public boolean isConfigured() {
-                return this.state.configured;
+                return isFieldConfigured(this.state.databaseURL)
+                        && isFieldConfigured(this.state.stopwordsPath)
+                        && isFieldConfigured(this.state.lucenePath)
+                        && isFieldConfigured(this.state.logPath);
         }
-
+        private boolean isFieldConfigured(String field){
+                return field != null && !field.isEmpty();
+        }
 
 }

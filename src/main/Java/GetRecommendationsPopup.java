@@ -10,7 +10,7 @@ public class GetRecommendationsPopup {
         final JBList<String> list = new JBList<>(queryPopupOptions);
 
         JBPopupFactory.getInstance().createListPopupBuilder(list)
-                .setItemChoosenCallback(() -> getRecommendationsCallback.getRecommendationsForQuery(editor.getSelectionModel().getSelectedText()))
+                .setItemChoosenCallback(() -> getRecommendationsCallback.getRecommendationsForQuery(editor.getSelectionModel().getSelectedText().trim()))
                 .createPopup()
                 .showInBestPositionFor(editor);
     }

@@ -8,8 +8,9 @@ import static java.lang.System.currentTimeMillis;
 
 public class EventLoggerService {
 
+
     ArrayList<Event> Event_INFO;
-    String file = "/Users/apple/Documents/SDProject/Event Logging/log.csv";
+    String file = "";
     private static EventLoggerService instance = null;
 
     private EventLoggerService() {
@@ -28,6 +29,7 @@ public class EventLoggerService {
     public static EventLoggerService getInstance(){
         if (instance == null){
             instance = new EventLoggerService();
+            instance.file = FACERConfigurationComponent.getInstance().getLogFilePath() + "/log.csv";
         }
 
         return instance;

@@ -16,8 +16,8 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
     @Override
     public void actionPerformed(@NotNull final AnActionEvent e) {
 
-        FACERConfigurationComponent instance = FACERConfigurationComponent.getInstance();
-        if(!instance.isConfigured()){
+        FACERConfigurationComponent configurationComponent = FACERConfigurationComponent.getInstance();
+        if(!configurationComponent.isConfigured()){
             new FACERConfigurationDialogWrapper().showAndGet();
         } else {
         projectRef = e.getProject();
@@ -25,6 +25,7 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
         //      event 0
         String query_text = editor.getSelectionModel().getSelectedText();
         if( query_text!= null)
+            query_text = query_text.trim();
             EventLoggerService.getInstance().log(0, new ArrayList<String>(Arrays.asList("query_text:" + query_text )));
         GetRecommendationsPopup.display(editor, this);
       }
