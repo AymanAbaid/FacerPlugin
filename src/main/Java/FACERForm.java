@@ -194,8 +194,9 @@ public class FACERForm {
         btnClose.setPreferredSize(new Dimension(8,8));
 
         btnClose.addActionListener(evt -> {
-            if (index >= 0) {
-                codeViewer.removeTabAt(index);
+            int tabIndex = codeViewer.indexOfTab(tabTitle);
+            if (tabIndex >= 0) {
+                codeViewer.removeTabAt(tabIndex);
             }
         });
 
