@@ -17,18 +17,23 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
     public void actionPerformed(@NotNull final AnActionEvent e) {
 
         FACERConfigurationComponent configurationComponent = FACERConfigurationComponent.getInstance();
-        if(!configurationComponent.isConfigured()){
-            new FACERConfigurationDialogWrapper().showAndGet();
-        } else {
-        projectRef = e.getProject();
-        final Editor editor = e.getData(CommonDataKeys.EDITOR);
-        //      event 0
-        String query_text = editor.getSelectionModel().getSelectedText();
-        if( query_text!= null)
-            query_text = query_text.trim();
-            EventLoggerService.getInstance().log(0, new ArrayList<String>(Arrays.asList("query_text:" + query_text )));
-        GetRecommendationsPopup.display(editor, this);
-      }
+        boolean isConfigured = configurationComponent.isConfigured();
+        if(!isConfigured){
+            isConfigured = new FACERConfigurationDialogWrapper().showAndGet();
+        }
+        if (isConfigured) {
+            projectRef = e.getProject();
+            final Editor editor = e.getData(CommonDataKeys.EDITOR);
+            String query_text = editor.getSelectionModel().getSelectedText();
+            if(query_text == null) {
+                FACERErrorDialog.showConfigurationCompleteError("Error", "No text selected. Please select text for recommendations.");
+            } else {
+                // event 0
+                query_text = query_text.trim();
+                EventLoggerService.getInstance().log(0, new ArrayList<String>(Arrays.asList("query_text:" + query_text)));
+                GetRecommendationsPopup.display(editor, this);
+            }
+        }
     }
 
     private java.lang.String getToolWindowId() {
@@ -37,15 +42,11 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
 
     @Override
     public void getRecommendationsForQuery(String query) {
-        if(query == null) {
-            FACERErrorDialog.showConfigurationCompleteError("Error","No text selected. Please select text for recommendations.");
 
-         } else {
-            ToolWindow toolWindow = ToolWindowManager.getInstance(projectRef).getToolWindow(getToolWindowId());
-            toolWindow.show();
-            ArrayList recommendationsForQuery = FACERSearchService.getInstance().getRecommendationsForQuery(query);
-            FACERForm.getInstance().populateRecommendations(query, recommendationsForQuery.toArray());
-        }
+        ToolWindow toolWindow = ToolWindowManager.getInstance(projectRef).getToolWindow(getToolWindowId());
+        toolWindow.show();
+        ArrayList recommendationsForQuery = FACERSearchService.getInstance().getRecommendationsForQuery(query);
+        FACERForm.getInstance().populateRecommendations(query, recommendationsForQuery.toArray());
     }
 
     @Override
