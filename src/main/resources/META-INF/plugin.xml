@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>FacerPlugin.FacerPlugin</id>
     <name>FACER</name>
-    <vendor email="some@yourcompany.com" url="http://www.some.com">some</vendor>
+    <vendor>FACER co</vendor>
 
     <!--<description><![CDATA[-->
     <!--Enter short description for your plugin here.<br>-->
@@ -21,15 +21,30 @@
                text="_FACER"
                description="FACER Plugin">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="myAction"
-                    class="myAction"
+            <action id="QuerySearchAction"
+                    class="QuerySearchAction"
                     text="Enable FACER"
-                    description="myAction">
+                    description="QuerySearchAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl 1"/>
-
+            </action>
+            <action id="ConfigurationAction"
+                    class="ConfigurationAction"
+                    text="Configure FACER"
+                    description="ConfigurationAction">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl 2"/>
             </action>
         </group>
     </actions>
 
+    <extensions  defaultExtensionNs="com.intellij">
+        <toolWindow id="FACER" anchor="left" factoryClass="FACERTWFactory" doNotActivateOnStart="true"/>
+
+    </extensions>
+
+    <application-components>
+        <component>
+            <implementation-class>FACERConfigurationComponent</implementation-class>
+        </component>
+    </application-components>
 
 </idea-plugin>
