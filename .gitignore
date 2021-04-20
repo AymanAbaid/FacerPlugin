@@ -1,3 +1,8 @@
 /.gradle/
-/build/
 /.idea/
+# ignore everything in the `build` folder
+
+/build/*
+!/build/distributions
+/build/distributions/*
+!/build/distributions/FacerPlugin-1.0-SNAPSHOT.zip
