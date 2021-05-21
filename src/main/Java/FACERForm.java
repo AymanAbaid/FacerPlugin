@@ -60,6 +60,7 @@ public class FACERForm {
                 if (method != null) {
                     showMethodBody(method, false);
                 }
+                getRelatedMethodsForMethod(method);
             }
         }
     };
@@ -103,7 +104,15 @@ public class FACERForm {
                         "method_id:" + queryMethod.id,
                         "method_name:" + queryMethod.name,
                         "result_count:" + results.length)));
+    }
 
+    private void getRelatedMethodsForMethod(Method method) {
+        //      event 4
+        EventLoggerService.getInstance().log(4, new ArrayList<String>(Arrays.asList(
+                "method_id:" + method.id,
+                "method_name:" + method.name)));
+        ArrayList relatedMethods = FACERSearchService.getInstance().getRelatedMethods(method.id);
+        populateRelatedMethods(method, relatedMethods.toArray());
     }
 
     public void showMethodBody(Method method, boolean isRelatedMethodSearch){
@@ -122,14 +131,7 @@ public class FACERForm {
         getRelatedMethodsButton.setPreferredSize(new Dimension(20,20));
         getRelatedMethodsButton.setToolTipText("Search related methods");
         getRelatedMethodsButton.addActionListener(evt -> {
-        //      event 4
-            EventLoggerService.getInstance().log(4, new ArrayList<String>(Arrays.asList(
-                "method_id:" + method.id,
-                "method_name:" + method.name)));
-
-            ArrayList relatedMethods = FACERSearchService.getInstance().getRelatedMethods(method.id);
-
-            populateRelatedMethods(method, relatedMethods.toArray());
+            getRelatedMethodsForMethod(method);
         });
 
         JButton copyMethodBodyButton = new JButton(AllIcons.Actions.Copy);
@@ -146,7 +148,7 @@ public class FACERForm {
                                 "method_name:" + method.name)));
             }
             else {
-            // event 7
+                // event 7
                 EventLoggerService.getInstance().log(7,
                         new ArrayList<String>(Arrays.asList(
                                 "method_id:" + method.id,
@@ -222,5 +224,4 @@ public class FACERForm {
         codeViewer.setTabComponentAt(index, tabLabelPanel);
         codeViewer.setSelectedIndex(index);
     }
-
 }
