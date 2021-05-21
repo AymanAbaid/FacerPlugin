@@ -23,6 +23,7 @@ public class EventLoggerService {
         Event_INFO.add(new Event(5, "RELATED_SEARCH_RETURN"));
         Event_INFO.add(new Event(6, "RELATED_SEARCH_METHOD_CLICK"));
         Event_INFO.add(new Event(7, "RELATED_SEARCH_METHOD_USED"));
+        Event_INFO.add(new Event(8, "RELATED_SEARCH_METHOD_UPVOTE"));
 
     }
 

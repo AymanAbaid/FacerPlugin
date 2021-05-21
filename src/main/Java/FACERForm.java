@@ -177,6 +177,22 @@ public class FACERForm {
         JPanel optionsWrapper = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         optionsWrapper.add(getRelatedMethodsButton);
         optionsWrapper.add(copyMethodBodyButton);
+
+        if (isRelatedMethodSearch) {
+            JButton upvoteMethodButton = new JButton(AllIcons.Actions.Commit);
+            upvoteMethodButton.setBorder(BorderFactory.createEmptyBorder());
+            upvoteMethodButton.setPreferredSize(new Dimension(20, 20));
+            upvoteMethodButton.setToolTipText("Upvote method");
+            upvoteMethodButton.addActionListener(evt -> {
+                // event 8
+                EventLoggerService.getInstance().log(8,
+                        new ArrayList<String>(Arrays.asList(
+                                "method_id:" + method.id,
+                                "method_name:" + method.name)));
+            });
+            optionsWrapper.add(upvoteMethodButton);
+        }
+
         optionsWrapper.setBackground(Color.white);
 
         tabPanel.add(optionsWrapper, BorderLayout.NORTH);
