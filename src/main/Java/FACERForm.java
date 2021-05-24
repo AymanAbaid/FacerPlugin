@@ -60,7 +60,7 @@ public class FACERForm {
                 if (method != null) {
                     showMethodBody(method, false);
                 }
-                getRelatedMethodsForMethod(method);
+//                getRelatedMethodsForMethod(method);
             }
         }
     };
