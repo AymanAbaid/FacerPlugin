@@ -7,10 +7,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @State(
-        name = "FACERConfigurationComponent",
+        name = "FACERConfigurationStateComponent",
         storages = {@Storage("FACERConfiguration.xml")})
 
-class FACERConfigurationComponent implements PersistentStateComponent<FACERConfigurationComponent.State> {
+class FACERConfigurationStateComponent implements PersistentStateComponent<FACERConfigurationStateComponent.State> {
 
         public State state = new State();
 
@@ -33,8 +33,8 @@ class FACERConfigurationComponent implements PersistentStateComponent<FACERConfi
         }
 
         @Nullable
-        public static FACERConfigurationComponent getInstance() {
-                return ApplicationManager.getApplication().getComponent(FACERConfigurationComponent.class);
+        public static FACERConfigurationStateComponent getInstance() {
+                return ApplicationManager.getApplication().getComponent(FACERConfigurationStateComponent.class);
         }
         public void updateConfigurations(String databaseURL, String stopwordsPath, String lucenePath, String logPath) {
                 this.state.databaseURL = databaseURL;

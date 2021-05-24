@@ -30,7 +30,7 @@ public class EventLoggerService {
     public static EventLoggerService getInstance(){
         if (instance == null){
             instance = new EventLoggerService();
-            instance.file = FACERConfigurationComponent.getInstance().getLogFilePath() + "/log.csv";
+            instance.file = FACERConfigurationStateComponent.getInstance().getLogFilePath() + "/log.csv";
         }
 
         return instance;

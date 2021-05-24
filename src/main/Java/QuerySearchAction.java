@@ -16,7 +16,7 @@ public class QuerySearchAction extends AnAction implements GetRecommendations{
     @Override
     public void actionPerformed(@NotNull final AnActionEvent e) {
 
-        FACERConfigurationComponent configurationComponent = FACERConfigurationComponent.getInstance();
+        FACERConfigurationStateComponent configurationComponent = FACERConfigurationStateComponent.getInstance();
         boolean isConfigured = configurationComponent.isConfigured();
         if(!isConfigured){
             isConfigured = new FACERConfigurationDialogWrapper().showAndGet();

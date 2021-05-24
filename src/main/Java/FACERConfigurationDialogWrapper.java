@@ -12,7 +12,7 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
     JTextField stopwordsPath = new JTextField();
     JTextField luceneIndexPath = new JTextField();
     JTextField logFilePath = new JTextField();
-    FACERConfigurationComponent configurationComponent = FACERConfigurationComponent.getInstance();
+    FACERConfigurationStateComponent configurationComponent = FACERConfigurationStateComponent.getInstance();
 
     public FACERConfigurationDialogWrapper() {
         super(true); // use current window as parent

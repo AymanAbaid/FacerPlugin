@@ -43,7 +43,7 @@
 
     <application-components>
         <component>
-            <implementation-class>FACERConfigurationComponent</implementation-class>
+            <implementation-class>FACERConfigurationStateComponent</implementation-class>
         </component>
     </application-components>
 

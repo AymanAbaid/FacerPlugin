@@ -10,7 +10,7 @@ public class FACERSearchService   {
     private static FACERSearchService instance = null;
     private static ArrayList<Method> querySearchResults;
     private static ArrayList<Method> relatedSearchResults;
-    FACERConfigurationComponent configurationComponent = FACERConfigurationComponent.getInstance();
+    FACERConfigurationStateComponent configurationComponent = FACERConfigurationStateComponent.getInstance();
 
     private FACERSearchService() {}
 
