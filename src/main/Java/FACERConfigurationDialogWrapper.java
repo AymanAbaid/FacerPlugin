@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.sql.*;
 
 public class FACERConfigurationDialogWrapper extends DialogWrapper {
 
@@ -12,6 +13,8 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
     JTextField stopwordsPath = new JTextField();
     JTextField luceneIndexPath = new JTextField();
     JTextField logFilePath = new JTextField();
+    JTextField datasetRootPath = new JTextField();
+
     FACERConfigurationStateComponent configurationComponent = FACERConfigurationStateComponent.getInstance();
 
     public FACERConfigurationDialogWrapper() {
@@ -47,57 +50,64 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
         dialogPanel.add(databaseURLMessageLine2);
         dialogPanel.add(databaseURLMessageLine3);
         dialogPanel.add(Box.createVerticalStrut(5));
-        dialogPanel.add(databaseURL);
 
+        dialogPanel.add(databaseURL);
         dialogPanel.add(Box.createVerticalStrut(10));
 
         // stopwords file information
 
-        AddFileFolderPathField(dialogPanel, "Stopwords File Path", "This path will be used to access stopwords file for FACER method recommendations.", "Choose file", JFileChooser.FILES_ONLY, stopwordsPath, configurationComponent.getStopwordsPath());
-
+        addFileFolderPathField(dialogPanel, "Stopwords File Path", "This path will be used to access stopwords file for FACER method recommendations.", "Choose file", JFileChooser.FILES_ONLY, stopwordsPath, configurationComponent.getStopwordsPath());
         dialogPanel.add(Box.createVerticalStrut(10));
 
         // lucene index folder information
 
-        AddFileFolderPathField(dialogPanel, "Lucene Index Path", "This path will be used to access Lucene Index folder for FACER method recommendations.", "Choose folder", JFileChooser.DIRECTORIES_ONLY, luceneIndexPath, configurationComponent.getLucenePath());
+        addFileFolderPathField(dialogPanel, "Lucene Index Path", "This path will be used to access Lucene Index folder for FACER method recommendations.", "Choose folder", JFileChooser.DIRECTORIES_ONLY, luceneIndexPath, configurationComponent.getLucenePath());
+        dialogPanel.add(Box.createVerticalStrut(10));
 
-        AddFileFolderPathField(dialogPanel, "Log File Path", "This path will be used to log interaction events for FACER.", "Choose folder", JFileChooser.DIRECTORIES_ONLY, logFilePath, configurationComponent.getLogFilePath());
+        // Log file location information
+
+        addFileFolderPathField(dialogPanel, "Log File Path", "This path will be used to log interaction events for FACER.", "Choose folder", JFileChooser.DIRECTORIES_ONLY, logFilePath, configurationComponent.getLogFilePath());
+        dialogPanel.add(Box.createVerticalStrut(10));
+
+        // Dataset folder root information
+        addFileFolderPathField(dialogPanel, "Dataset Root Folder", "This path will be used to access the dataset for code recommendation.", "Choose folder", JFileChooser.DIRECTORIES_ONLY, datasetRootPath, configurationComponent.getDatasetRootPath());
+        dialogPanel.add(Box.createVerticalStrut(10));
 
         return dialogPanel;
     }
 
-    private void AddFileFolderPathField(JPanel dialogPanel, String s, String s2, String s3, int filesOnly, JTextField stopwordsPath, String stopwordsPath2) {
-        JLabel stopwordsPathLabel = new JLabel(s);
-        stopwordsPathLabel.setFont(stopwordsPathLabel.getFont().deriveFont(Font.BOLD, 12f));
-        JLabel stopwordsPathMessage = new JLabel(s2);
+    private void addFileFolderPathField(JPanel dialogPanel, String label, String message, String toolTip, int filesOnly, JTextField pathTextField, String pathTextFieldValue) {
+        JLabel pathLabelField = new JLabel(label);
+        pathLabelField.setFont(pathLabelField.getFont().deriveFont(Font.BOLD, 12f));
+        JLabel pathMessageField = new JLabel(message);
 
-        JButton stopwordsPathButton = new JButton(AllIcons.Actions.Menu_open);
-        stopwordsPathButton.setBorder(BorderFactory.createEmptyBorder());
-        stopwordsPathButton.setPreferredSize(new Dimension(20, 20));
-        stopwordsPathButton.setToolTipText(s3);
-        stopwordsPathButton.setContentAreaFilled(false);
-        stopwordsPathButton.addActionListener(evt -> {
+        JButton pathBrowseButton = new JButton(AllIcons.Actions.Menu_open);
+        pathBrowseButton.setBorder(BorderFactory.createEmptyBorder());
+        pathBrowseButton.setPreferredSize(new Dimension(20, 20));
+        pathBrowseButton.setToolTipText(toolTip);
+        pathBrowseButton.setContentAreaFilled(false);
+        pathBrowseButton.addActionListener(evt -> {
             final JFileChooser fc = new JFileChooser();
             fc.setFileSelectionMode(filesOnly);
             int option = fc.showOpenDialog(dialogPanel);
             if (option == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                stopwordsPath.setText(file.getPath());
+                pathTextField.setText(file.getPath());
             }
         });
 
         JPanel stopwrodsPathWrapper = new JPanel(new BorderLayout());
-        stopwrodsPathWrapper.add(stopwordsPath);
-        stopwrodsPathWrapper.add(stopwordsPathButton, BorderLayout.EAST);
-        stopwordsPath.setText(stopwordsPath2);
+        stopwrodsPathWrapper.add(pathTextField);
+        stopwrodsPathWrapper.add(pathBrowseButton, BorderLayout.EAST);
+        pathTextField.setText(pathTextFieldValue);
 
-        stopwordsPathLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        stopwordsPathMessage.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pathLabelField.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pathMessageField.setAlignmentX(Component.LEFT_ALIGNMENT);
         stopwrodsPathWrapper.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        dialogPanel.add(stopwordsPathLabel);
+        dialogPanel.add(pathLabelField);
         dialogPanel.add(Box.createVerticalStrut(5));
-        dialogPanel.add(stopwordsPathMessage);
+        dialogPanel.add(pathMessageField);
         dialogPanel.add(Box.createVerticalStrut(5));
         dialogPanel.add(stopwrodsPathWrapper);
     }
@@ -116,10 +126,41 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
         if (databaseURL.getText().isEmpty()
                 || stopwordsPath.getText().isEmpty()
                 || luceneIndexPath.getText().isEmpty()
-                || logFilePath.getText().isEmpty()) {
+                || logFilePath.getText().isEmpty()
+                || datasetRootPath.getText().isEmpty()) {
             FACERErrorDialog.showConfigurationCompleteError("Configuration Incomplete", "Please complete configuration to use FACER recommendations.");
         } else {
-            configurationComponent.updateConfigurations(databaseURL.getText(), stopwordsPath.getText(), luceneIndexPath.getText(), logFilePath.getText());
+            String oldDatasetRootPath = configurationComponent.getDatasetRootPath();
+            String newDatasetRootPath = datasetRootPath.getText().replaceAll("\\\\$", "");
+//            newDatasetRootPath = newDatasetRootPath.replaceAll("\\\\", "\\\\");
+
+            if (!configurationComponent.isDatasetRootPathConfigured() || !oldDatasetRootPath.equals(newDatasetRootPath)) {
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection con = DriverManager.getConnection(
+                            "jdbc:mysql://localhost/FACER_test?useSSL=false", "root", "");
+                    PreparedStatement pstmtUpdateProject = con.prepareStatement("UPDATE project SET path = REPLACE(path, ?, ?);");
+                    PreparedStatement pstmtUpdateFile = con.prepareStatement("UPDATE file SET file_name = REPLACE(file_name, ?, ?);");
+                    if (configurationComponent.isDatasetRootPathConfigured()) {
+                        pstmtUpdateProject.setString(1, oldDatasetRootPath);
+                        pstmtUpdateFile.setString(1, oldDatasetRootPath);
+                    } else {
+                        pstmtUpdateProject.setString(1, "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\Dataset");
+                        pstmtUpdateFile.setString(1, "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\Dataset");
+                    }
+                    pstmtUpdateProject.setString(2, newDatasetRootPath);
+                    pstmtUpdateFile.setString(2, newDatasetRootPath);
+                    pstmtUpdateProject.executeUpdate();
+                    pstmtUpdateFile.executeUpdate();
+                    con.close();
+                    configurationComponent.updateConfigurations(databaseURL.getText(), stopwordsPath.getText(), luceneIndexPath.getText(), logFilePath.getText(), newDatasetRootPath);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
+            } else {
+                configurationComponent.updateConfigurations(databaseURL.getText(), stopwordsPath.getText(), luceneIndexPath.getText(), logFilePath.getText(), newDatasetRootPath);
+            }
             super.doOKAction();
         }
     }

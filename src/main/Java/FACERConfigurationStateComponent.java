@@ -20,6 +20,7 @@ class FACERConfigurationStateComponent implements PersistentStateComponent<FACER
                 public String stopwordsPath;
                 public String lucenePath;
                 public String logPath;
+                public String datasetRootPath;
         }
 
         @Override
@@ -36,11 +37,12 @@ class FACERConfigurationStateComponent implements PersistentStateComponent<FACER
         public static FACERConfigurationStateComponent getInstance() {
                 return ApplicationManager.getApplication().getComponent(FACERConfigurationStateComponent.class);
         }
-        public void updateConfigurations(String databaseURL, String stopwordsPath, String lucenePath, String logPath) {
+        public void updateConfigurations(String databaseURL, String stopwordsPath, String lucenePath, String logPath, String datasetRootPath) {
                 this.state.databaseURL = databaseURL;
                 this.state.stopwordsPath = stopwordsPath;
                 this.state.lucenePath = lucenePath;
                 this.state.logPath = logPath;
+                this.state.datasetRootPath = datasetRootPath;
         }
 
         public String getDatabaseURL() { return this.state.databaseURL; }
@@ -49,12 +51,20 @@ class FACERConfigurationStateComponent implements PersistentStateComponent<FACER
         }
         public String getLucenePath() { return this.state.lucenePath; }
         public String getLogFilePath() { return this.state.logPath; }
+        public String getDatasetRootPath() { return this.state.datasetRootPath; }
+
         public boolean isConfigured() {
                 return isFieldConfigured(this.state.databaseURL)
                         && isFieldConfigured(this.state.stopwordsPath)
                         && isFieldConfigured(this.state.lucenePath)
-                        && isFieldConfigured(this.state.logPath);
+                        && isFieldConfigured(this.state.logPath)
+                        && isFieldConfigured(this.state.datasetRootPath);
         }
+
+        public boolean isDatasetRootPathConfigured(){
+                return isFieldConfigured(this.state.datasetRootPath);
+        }
+
         private boolean isFieldConfigured(String field){
                 return field != null && !field.isEmpty();
         }
