@@ -131,8 +131,10 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
             FACERErrorDialog.showConfigurationCompleteError("Configuration Incomplete", "Please complete configuration to use FACER recommendations.");
         } else {
             String oldDatasetRootPath = configurationComponent.getDatasetRootPath();
-            String newDatasetRootPath = datasetRootPath.getText().replaceAll("\\\\$", "");
-//            newDatasetRootPath = newDatasetRootPath.replaceAll("\\\\", "\\\\");
+            String newDatasetRootPath = datasetRootPath.getText();
+            if(!newDatasetRootPath.endsWith("\\")){
+                newDatasetRootPath += "\\";
+            }
 
             if (!configurationComponent.isDatasetRootPathConfigured() || !oldDatasetRootPath.equals(newDatasetRootPath)) {
                 try {
@@ -145,8 +147,8 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
                         pstmtUpdateProject.setString(1, oldDatasetRootPath);
                         pstmtUpdateFile.setString(1, oldDatasetRootPath);
                     } else {
-                        pstmtUpdateProject.setString(1, "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\Dataset");
-                        pstmtUpdateFile.setString(1, "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\Dataset");
+                        pstmtUpdateProject.setString(1, "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\Dataset\\");
+                        pstmtUpdateFile.setString(1, "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\Dataset\\");
                     }
                     pstmtUpdateProject.setString(2, newDatasetRootPath);
                     pstmtUpdateFile.setString(2, newDatasetRootPath);
