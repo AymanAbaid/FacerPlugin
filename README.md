@@ -40,6 +40,9 @@ To test the project in a test instance of Android Studio using the "runIde" Grad
 To test the project in the system installed instance of Android Studio, run the "buildPlugin" Gradle task at **<Project> > Tasks > intellij > buildPlugin** in the Gradle Tool Window. The task assembles plugin and prepares zip archive for deployment. The archive should be available in **/build/distributions/** folder of the project.\
 In order to install this plugin snapshot in Android Studio, launch Android Studio and go to **File > Settings > Plugins > Settings Icon > Install Plugin from Disk...**, and choose the snapshot zip file. Restart Android Studio to show the FACER option in top Menu bar.
 
+## Plugin Configuration
+On first launch of FACER-AS, the Configuration Setup dialog will appears (or use FACER on menu bar and select Configuration option). Add the URL of database created during FACER setup, the path to Lucene Index folder, the stopwords.txt file path, and a destination path for the User Interaction logs. After the setup is complete, the user can click Ok option, which updates the plugin configuration settings and the plugin is enabled.
+    ![ui config](https://user-images.githubusercontent.com/29062159/119324436-421ac180-bc99-11eb-8576-fdfe916814bc.png)
 
 ## Usage
 
