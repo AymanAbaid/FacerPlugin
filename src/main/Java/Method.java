@@ -9,4 +9,7 @@ public class Method {
 
     @SerializedName("Body")
     public String body;
+
+    @SerializedName("Algo")
+    public String algo;
 }

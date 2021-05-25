@@ -71,9 +71,16 @@ public class FACERSearchService   {
         return null;
     }
 
-    public Method getRelatedMethod(int index) {
+    public Method getRelatedMethodAt(int index) {
         if (index < relatedSearchResults.size()) {
             return relatedSearchResults.get(index);
+        }
+        return null;
+    }
+
+    public String getAlgoForRelatedMethodAt(int index) {
+        if (index < relatedSearchResults.size()) {
+            return relatedSearchResults.get(index).algo;
         }
         return null;
     }

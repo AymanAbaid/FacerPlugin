@@ -72,7 +72,7 @@ public class FACERForm {
             if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
                 // Double-click detected
                 int index = list.getSelectedIndex();
-                Method method = FACERSearchService.getInstance().getRelatedMethod(index);
+                Method method = FACERSearchService.getInstance().getRelatedMethodAt(index);
                 // event 6
                 EventLoggerService.getInstance().log(6,
                         new ArrayList<String>(Arrays.asList(
@@ -103,6 +103,7 @@ public class FACERForm {
                 new ArrayList<String>(Arrays.asList(
                         "method_id:" + queryMethod.id,
                         "method_name:" + queryMethod.name,
+                        "related_algo:" + queryMethod.algo,
                         "result_count:" + results.length)));
     }
 
@@ -112,6 +113,9 @@ public class FACERForm {
                 "method_id:" + method.id,
                 "method_name:" + method.name)));
         ArrayList relatedMethods = FACERSearchService.getInstance().getRelatedMethods(method.id);
+        if(!relatedMethods.isEmpty()){
+            method.algo = FACERSearchService.getInstance().getAlgoForRelatedMethodAt(0);
+        }
         populateRelatedMethods(method, relatedMethods.toArray());
     }
 
@@ -152,7 +156,8 @@ public class FACERForm {
                 EventLoggerService.getInstance().log(7,
                         new ArrayList<String>(Arrays.asList(
                                 "method_id:" + method.id,
-                                "method_name:" + method.name)));
+                                "method_name:" + method.name,
+                                "related_algo:" + method.algo)));
             }
             final Project project = ProjectUtil.guessCurrentProject(mainPanel);
             @Nullable Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
@@ -190,7 +195,8 @@ public class FACERForm {
                 EventLoggerService.getInstance().log(8,
                         new ArrayList<String>(Arrays.asList(
                                 "method_id:" + method.id,
-                                "method_name:" + method.name)));
+                                "method_name:" + method.name,
+                                "related_algo:" + method.algo)));
             });
             optionsWrapper.add(upvoteMethodButton);
         }
