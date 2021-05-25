@@ -47,7 +47,7 @@ public class FACERSearchService   {
         ArrayList methodNames = new ArrayList();
         try {
             FACERStage2RelatedMethodsMaha relatedMethodsEvaluator = new FACERStage2RelatedMethodsMaha();
-            JSONArray relatedMethods = relatedMethodsEvaluator.getRelatedMethods(methodId, 10, configurationComponent.getDatabaseURL());
+            JSONArray relatedMethods = relatedMethodsEvaluator.getRelatedMethods(methodId, 3, configurationComponent.getDatabaseURL());
             if (relatedMethods != null) {
                 relatedSearchResults = new ArrayList();
                 int len = relatedMethods.size();
