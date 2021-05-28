@@ -52,6 +52,7 @@ class FACERConfigurationStateComponent implements PersistentStateComponent<FACER
         public String getLucenePath() { return this.state.lucenePath; }
         public String getLogFilePath() { return this.state.logPath; }
         public String getDatasetRootPath() { return this.state.datasetRootPath; }
+        public void resetDatasetRootPath() { this.state.datasetRootPath = null; }
 
         public boolean isConfigured() {
                 return isFieldConfigured(this.state.databaseURL)
