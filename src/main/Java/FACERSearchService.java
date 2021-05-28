@@ -92,7 +92,7 @@ public class FACERSearchService   {
         CodeFile codeFile = new CodeFile();
         try {
             FACERStage2RelatedMethodsMaha relatedMethodsEvaluator = new FACERStage2RelatedMethodsMaha();
-            JSONObject codeFileJson = relatedMethodsEvaluator.getFileBody(methodId);
+            JSONObject codeFileJson = relatedMethodsEvaluator.getFileBody(methodId, configurationComponent.getDatabaseURL());
             if (codeFileJson != null) {
                     codeFile = new Gson().fromJson(codeFileJson.toString(), CodeFile.class);
             }
@@ -106,7 +106,7 @@ public class FACERSearchService   {
         ArrayList methodNames = new ArrayList();
         try {
             FACERStage2RelatedMethodsMaha relatedMethodsEvaluator = new FACERStage2RelatedMethodsMaha();
-            ArrayList<Integer> calledMethods = relatedMethodsEvaluator.getCalledMethods(methodId);
+            JSONArray calledMethods = relatedMethodsEvaluator.getCalledMethods(methodId, configurationComponent.getDatabaseURL());
             if (calledMethods != null) {
                 relatedSearchResults = new ArrayList();
                 int len = calledMethods.size();

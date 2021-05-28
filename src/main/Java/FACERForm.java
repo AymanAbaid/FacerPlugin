@@ -310,10 +310,6 @@ public class FACERForm {
 //        textArea.setEditable(true);
         JScrollPane scrollableTextArea = new JBScrollPane(textArea);
 
-        JPanel optionsWrapper = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        optionsWrapper.setBackground(Color.white);
-
-        tabPanel.add(optionsWrapper, BorderLayout.NORTH);
         tabPanel.add(scrollableTextArea, BorderLayout.CENTER);
 
         codeViewer.addTab(tabTitle, tabPanel);
