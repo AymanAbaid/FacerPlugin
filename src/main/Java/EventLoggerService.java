@@ -16,11 +16,11 @@ public class EventLoggerService {
     private EventLoggerService() {
         Event_INFO = new ArrayList<Event>();
         Event_INFO.add(new Event(0, "QUERY_SEARCH_INVOCATION"));
-        Event_INFO.add(new Event(1, "QUERY_SEARCH_RETURN"));
+        Event_INFO.add(new Event(1, "QUERY_RESULTS"));
         Event_INFO.add(new Event(2, "QUERY_SEARCH_METHOD_CLICK"));
         Event_INFO.add(new Event(3, "QUERY_SEARCH_METHOD_USED"));
         Event_INFO.add(new Event(4, "RELATED_SEARCH_INVOCATION"));
-        Event_INFO.add(new Event(5, "RELATED_SEARCH_RETURN"));
+        Event_INFO.add(new Event(5, "RELATED_RESULTS"));
         Event_INFO.add(new Event(6, "RELATED_SEARCH_METHOD_CLICK"));
         Event_INFO.add(new Event(7, "RELATED_SEARCH_METHOD_USED"));
         Event_INFO.add(new Event(8, "RELATED_SEARCH_METHOD_UPVOTE"));
