@@ -1,7 +1,7 @@
 import com.google.gson.annotations.SerializedName;
 
-public class FileBody {
+public class CodeFile {
 
-    @SerializedName("ID")
-    public int id;
+    @SerializedName("FileBody")
+    public String body;
 }

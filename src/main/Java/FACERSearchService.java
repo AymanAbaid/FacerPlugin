@@ -2,6 +2,7 @@ import automated_evaluation.FACERStage2RelatedMethodsMaha;
 import com.google.gson.Gson;
 import methodsearch.StudentsEvaluatorStage1;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
@@ -84,4 +85,40 @@ public class FACERSearchService   {
         }
         return null;
     }
+
+    CodeFile getCodeFileForMethod(int methodId){
+        CodeFile codeFile = new CodeFile();
+        try {
+            FACERStage2RelatedMethodsMaha relatedMethodsEvaluator = new FACERStage2RelatedMethodsMaha();
+            JSONObject codeFileJson = relatedMethodsEvaluator.getFileBody(methodId);
+            if (codeFileJson != null) {
+                    codeFile = new Gson().fromJson(codeFileJson.toString(), CodeFile.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return codeFile;
+    }
+
+    public ArrayList getCalledMethods(int methodId) {
+        ArrayList methodNames = new ArrayList();
+        try {
+            FACERStage2RelatedMethodsMaha relatedMethodsEvaluator = new FACERStage2RelatedMethodsMaha();
+            ArrayList<Integer> calledMethods = relatedMethodsEvaluator.getCalledMethods(methodId);
+            if (calledMethods != null) {
+                relatedSearchResults = new ArrayList();
+                int len = calledMethods.size();
+                for (int i = 0; i < len; i++){
+                    Object methodJson = calledMethods.get(i);
+                    Method method = new Gson().fromJson(methodJson.toString(), Method.class);
+                    relatedSearchResults.add(method);
+                    methodNames.add(method.id + ": " + method.name);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return methodNames;
+    }
+
 }

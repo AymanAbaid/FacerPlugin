@@ -105,6 +105,10 @@ public class FACERForm {
                         "result_count:" + results.length)));
     }
 
+    public void populateCalledMethods(Method queryMethod, Object[] results) {
+        relatedMethodsList.setListData(results);
+    }
+
     private void getRelatedMethodsForMethod(Method method) {
         //      event 4
         EventLoggerService.getInstance().log(4, new ArrayList<String>(Arrays.asList(
@@ -115,6 +119,18 @@ public class FACERForm {
             method.algo = FACERSearchService.getInstance().getAlgoForRelatedMethodAt(0);
         }
         populateRelatedMethods(method, relatedMethods.toArray());
+    }
+
+    private void getCalledMethodsForMethod(Method method) {
+        //      event 10
+        EventLoggerService.getInstance().log(10, new ArrayList<String>(Arrays.asList(
+                "method_id:" + method.id,
+                "method_name:" + method.name)));
+        ArrayList relatedMethods = FACERSearchService.getInstance().getCalledMethods(method.id);
+        if(!relatedMethods.isEmpty()){
+            method.algo = FACERSearchService.getInstance().getAlgoForRelatedMethodAt(0);
+        }
+        populateCalledMethods(method, relatedMethods.toArray());
     }
 
     public void showMethodBody(Method method, boolean isRelatedMethodSearch){
@@ -175,6 +191,28 @@ public class FACERForm {
             primaryCaret.removeSelection();
         });
 
+        JButton showCodeFileButton = new JButton(AllIcons.Actions.ShowCode);
+        showCodeFileButton.setBorder(BorderFactory.createEmptyBorder());
+        showCodeFileButton.setPreferredSize(new Dimension(20,20));
+        showCodeFileButton.setToolTipText("Open code file");
+        showCodeFileButton.addActionListener(evt -> {
+            // event 9
+            EventLoggerService.getInstance().log(9,
+                    new ArrayList<String>(Arrays.asList(
+                            "method_id:" + method.id,
+                            "method_name:" + method.name)));
+            CodeFile codeFileForMethod = FACERSearchService.getInstance().getCodeFileForMethod(method.id);
+            showCodeFileBody(method, codeFileForMethod);
+        });
+
+        JButton showCalledMethodsButton = new JButton(AllIcons.Actions.ListFiles);
+        showCalledMethodsButton.setBorder(BorderFactory.createEmptyBorder());
+        showCalledMethodsButton.setPreferredSize(new Dimension(20,20));
+        showCalledMethodsButton.setToolTipText("Show called methods");
+        showCalledMethodsButton.addActionListener(evt -> {
+            getCalledMethodsForMethod(method);
+        });
+
         JTextArea textArea = new JTextArea(method.body);
 //        textArea.setEditable(true);
         JScrollPane scrollableTextArea = new JBScrollPane(textArea);
@@ -182,6 +220,8 @@ public class FACERForm {
         JPanel optionsWrapper = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         optionsWrapper.add(getRelatedMethodsButton);
         optionsWrapper.add(copyMethodBodyButton);
+        optionsWrapper.add(showCodeFileButton);
+        optionsWrapper.add(showCalledMethodsButton);
 
         if (isRelatedMethodSearch) {
             JButton upvoteMethodButton = new JButton(AllIcons.Actions.Commit);
@@ -228,4 +268,51 @@ public class FACERForm {
         codeViewer.setTabComponentAt(index, tabLabelPanel);
         codeViewer.setSelectedIndex(index);
     }
+
+    public void showCodeFileBody(Method method, CodeFile codeFile){
+        String tabTitle = method.id + ": " + method.name + " - File";
+        int existingTabIndex = codeViewer.indexOfTab(tabTitle);
+        if (existingTabIndex != -1){
+            codeViewer.setSelectedIndex(existingTabIndex);
+            return;
+        }
+
+        JPanel tabPanel = new JPanel();
+        tabPanel.setLayout(new BorderLayout());
+
+        JTextArea textArea = new JTextArea(codeFile.body);
+//        textArea.setEditable(true);
+        JScrollPane scrollableTextArea = new JBScrollPane(textArea);
+
+        JPanel optionsWrapper = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        optionsWrapper.setBackground(Color.white);
+
+        tabPanel.add(optionsWrapper, BorderLayout.NORTH);
+        tabPanel.add(scrollableTextArea, BorderLayout.CENTER);
+
+        codeViewer.addTab(tabTitle, tabPanel);
+        int index = codeViewer.indexOfTab(tabTitle);
+
+        JPanel tabLabelPanel = new JPanel(new FlowLayout());
+        tabLabelPanel.setOpaque(false);
+        JLabel lblTitle = new JLabel(tabTitle);
+
+        JButton btnClose = new JButton(AllIcons.Actions.Cancel);
+        btnClose.setBorder(BorderFactory.createEmptyBorder());
+        btnClose.setPreferredSize(new Dimension(8,8));
+
+        btnClose.addActionListener(evt -> {
+            int tabIndex = codeViewer.indexOfTab(tabTitle);
+            if (tabIndex >= 0) {
+                codeViewer.removeTabAt(tabIndex);
+            }
+        });
+
+        tabLabelPanel.add(lblTitle);
+        tabLabelPanel.add(btnClose);
+
+        codeViewer.setTabComponentAt(index, tabLabelPanel);
+        codeViewer.setSelectedIndex(index);
+    }
+
 }
