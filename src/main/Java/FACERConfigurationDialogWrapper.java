@@ -130,6 +130,9 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
                 || datasetRootPath.getText().isEmpty()) {
             FACERErrorDialog.showConfigurationCompleteError("Configuration Incomplete", "Please complete configuration to use FACER recommendations.");
         } else {
+            if(!databaseURL.getText().equals(configurationComponent.getDatabaseURL())){
+                configurationComponent.resetDatasetRootPath();
+            }
             String oldDatasetRootPath = configurationComponent.getDatasetRootPath();
             String newDatasetRootPath = datasetRootPath.getText();
             if(!newDatasetRootPath.endsWith("\\")){
