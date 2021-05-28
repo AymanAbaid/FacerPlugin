@@ -143,15 +143,15 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
                 try {
                     Class.forName("com.mysql.jdbc.Driver");
                     Connection con = DriverManager.getConnection(
-                            "jdbc:mysql://localhost/FACER_test?useSSL=false", "root", "");
+                            databaseURL.getText());
                     PreparedStatement pstmtUpdateProject = con.prepareStatement("UPDATE project SET path = REPLACE(path, ?, ?);");
                     PreparedStatement pstmtUpdateFile = con.prepareStatement("UPDATE file SET file_name = REPLACE(file_name, ?, ?);");
                     if (configurationComponent.isDatasetRootPathConfigured()) {
                         pstmtUpdateProject.setString(1, oldDatasetRootPath);
                         pstmtUpdateFile.setString(1, oldDatasetRootPath);
                     } else {
-                        pstmtUpdateProject.setString(1, "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\Dataset\\");
-                        pstmtUpdateFile.setString(1, "D:\\FACER\\FACER_Artifacts\\FACER_Replication_Pack\\Dataset\\");
+                        pstmtUpdateProject.setString(1, "F:\\FACER_2020\\RawSourceCodeDataset\\ClonedNew\\");
+                        pstmtUpdateFile.setString(1, "F:\\FACER_2020\\RawSourceCodeDataset\\ClonedNew\\");
                     }
                     pstmtUpdateProject.setString(2, newDatasetRootPath);
                     pstmtUpdateFile.setString(2, newDatasetRootPath);
@@ -162,7 +162,6 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
                 } catch (Exception e) {
                     System.out.println(e);
                 }
-
             } else {
                 configurationComponent.updateConfigurations(databaseURL.getText(), stopwordsPath.getText(), luceneIndexPath.getText(), logFilePath.getText(), newDatasetRootPath);
             }
