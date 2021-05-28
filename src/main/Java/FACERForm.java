@@ -20,9 +20,7 @@ import java.util.Arrays;
 public class FACERForm {
 
     private JPanel mainPanel;
-    private JTextField filterRecommendations;
     private JList recommendationsList;
-    private JTextField filterRelatedMethods;
     private JList relatedMethodsList;
     private JTabbedPane codeViewer;
 
