@@ -56,7 +56,7 @@ public class FACERForm {
                                 "method_name:" + method.name,
                                 "rank:" + index)));
                 if (method != null) {
-                    showMethodBody(method, false);
+                    showMethodBody(method);
                 }
 //                getRelatedMethodsForMethod(method);
             }
@@ -71,14 +71,23 @@ public class FACERForm {
                 // Double-click detected
                 int index = list.getSelectedIndex();
                 Method method = FACERSearchService.getInstance().getRelatedMethodAt(index);
-                // event 6
-                EventLoggerService.getInstance().log(6,
-                        new ArrayList<String>(Arrays.asList(
-                                "method_id:" + method.id,
-                                "method_name:" + method.name,
-                                "rank:"+index)));
                 if (method != null){
-                    showMethodBody(method, true);
+                    // event 6
+                    if (method.isRelatedMethod()) {
+                        EventLoggerService.getInstance().log(6,
+                                new ArrayList<String>(Arrays.asList(
+                                        "method_id:" + method.id,
+                                        "method_name:" + method.name,
+                                        "rank:" + index)));
+                    } else if (method.isCalledMethod()){
+                        // event 11
+                        EventLoggerService.getInstance().log(11,
+                                new ArrayList<String>(Arrays.asList(
+                                        "method_id:" + method.id,
+                                        "method_name:" + method.name,
+                                        "rank:" + index)));
+                    }
+                    showMethodBody(method);
                 }
             }
         }
@@ -107,6 +116,11 @@ public class FACERForm {
 
     public void populateCalledMethods(Method queryMethod, Object[] results) {
         relatedMethodsList.setListData(results);
+        // event 10
+        EventLoggerService.getInstance().log(10, new ArrayList<String>(Arrays.asList(
+                "method_id:" + queryMethod.id,
+                "method_name:" + queryMethod.name,
+                "result_count:" + results.length)));
     }
 
     private void getRelatedMethodsForMethod(Method method) {
@@ -122,8 +136,8 @@ public class FACERForm {
     }
 
     private void getCalledMethodsForMethod(Method method) {
-        //      event 10
-        EventLoggerService.getInstance().log(10, new ArrayList<String>(Arrays.asList(
+        //      event 9
+        EventLoggerService.getInstance().log(9, new ArrayList<String>(Arrays.asList(
                 "method_id:" + method.id,
                 "method_name:" + method.name)));
         ArrayList relatedMethods = FACERSearchService.getInstance().getCalledMethods(method.id);
@@ -133,7 +147,7 @@ public class FACERForm {
         populateCalledMethods(method, relatedMethods.toArray());
     }
 
-    public void showMethodBody(Method method, boolean isRelatedMethodSearch){
+    public void showMethodBody(Method method){
         String tabTitle = method.id + ": " + method.name;
         int existingTabIndex = codeViewer.indexOfTab(tabTitle);
         if (existingTabIndex != -1){
@@ -158,20 +172,24 @@ public class FACERForm {
         copyMethodBodyButton.setToolTipText("Add code to my file");
         copyMethodBodyButton.addActionListener(evt -> {
             // event 3
-            if (!isRelatedMethodSearch)
-            {
+            if (method.isQueryMethod()) {
                 EventLoggerService.getInstance().log(3,
                         new ArrayList<String>(Arrays.asList(
                                 "method_id:" + method.id,
                                 "method_name:" + method.name)));
-            }
-            else {
+            } else if (method.isRelatedMethod()) {
                 // event 7
                 EventLoggerService.getInstance().log(7,
                         new ArrayList<String>(Arrays.asList(
                                 "method_id:" + method.id,
                                 "method_name:" + method.name,
                                 "related_algo:" + method.algo)));
+            } else if (method.isCalledMethod()){
+                // event 12
+                EventLoggerService.getInstance().log(12,
+                        new ArrayList<String>(Arrays.asList(
+                                "method_id:" + method.id,
+                                "method_name:" + method.name)));
             }
             final Project project = ProjectUtil.guessCurrentProject(mainPanel);
             @Nullable Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
@@ -196,8 +214,8 @@ public class FACERForm {
         showCodeFileButton.setPreferredSize(new Dimension(20,20));
         showCodeFileButton.setToolTipText("Open code file");
         showCodeFileButton.addActionListener(evt -> {
-            // event 9
-            EventLoggerService.getInstance().log(9,
+            // event 14
+            EventLoggerService.getInstance().log(14,
                     new ArrayList<String>(Arrays.asList(
                             "method_id:" + method.id,
                             "method_name:" + method.name)));
@@ -223,18 +241,26 @@ public class FACERForm {
         optionsWrapper.add(showCodeFileButton);
         optionsWrapper.add(showCalledMethodsButton);
 
-        if (isRelatedMethodSearch) {
+        if (method.isRelatedMethod() || method.isCalledMethod()) {
             JButton upvoteMethodButton = new JButton(AllIcons.Actions.Commit);
             upvoteMethodButton.setBorder(BorderFactory.createEmptyBorder());
             upvoteMethodButton.setPreferredSize(new Dimension(20, 20));
             upvoteMethodButton.setToolTipText("Upvote method");
             upvoteMethodButton.addActionListener(evt -> {
-                // event 8
-                EventLoggerService.getInstance().log(8,
-                        new ArrayList<String>(Arrays.asList(
-                                "method_id:" + method.id,
-                                "method_name:" + method.name,
-                                "related_algo:" + method.algo)));
+                if(method.isRelatedMethod()) {
+                    // event 8
+                    EventLoggerService.getInstance().log(8,
+                            new ArrayList<String>(Arrays.asList(
+                                    "method_id:" + method.id,
+                                    "method_name:" + method.name,
+                                    "related_algo:" + method.algo)));
+                } else if (method.isCalledMethod()) {
+                    // event 13
+                    EventLoggerService.getInstance().log(13,
+                            new ArrayList<String>(Arrays.asList(
+                                    "method_id:" + method.id,
+                                    "method_name:" + method.name)));
+                }
             });
             optionsWrapper.add(upvoteMethodButton);
         }

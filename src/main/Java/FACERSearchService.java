@@ -34,6 +34,7 @@ public class FACERSearchService   {
                 for (int i = 0; i < len; i++){
                     Object methodJson = results.get(i);
                     Method method = new Gson().fromJson(methodJson.toString(), Method.class);
+                    method.setType("query");
                     querySearchResults.add(method);
                     methodNames.add(method.id + ": " + method.name);
                 }
@@ -55,6 +56,7 @@ public class FACERSearchService   {
                 for (int i = 0; i < len; i++){
                     Object methodJson = relatedMethods.get(i);
                     Method method = new Gson().fromJson(methodJson.toString(), Method.class);
+                    method.setType("related");
                     relatedSearchResults.add(method);
                     methodNames.add(method.id + ": " + method.name);
                 }
@@ -111,6 +113,7 @@ public class FACERSearchService   {
                 for (int i = 0; i < len; i++){
                     Object methodJson = calledMethods.get(i);
                     Method method = new Gson().fromJson(methodJson.toString(), Method.class);
+                    method.setType("called");
                     relatedSearchResults.add(method);
                     methodNames.add(method.id + ": " + method.name);
                 }

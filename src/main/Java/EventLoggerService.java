@@ -24,8 +24,12 @@ public class EventLoggerService {
         Event_INFO.add(new Event(6, "RELATED_SEARCH_METHOD_CLICK"));
         Event_INFO.add(new Event(7, "RELATED_SEARCH_METHOD_USED"));
         Event_INFO.add(new Event(8, "RELATED_SEARCH_METHOD_UPVOTE"));
-        Event_INFO.add(new Event(9, "CODE_FILE_FOR_METHOD"));
-        Event_INFO.add(new Event(10, "TARGET_METHODS_FOR_METHOD"));
+        Event_INFO.add(new Event(9, "CALLED_SEARCH_INVOCATION"));
+        Event_INFO.add(new Event(10, "CALLED_RESULTS"));
+        Event_INFO.add(new Event(11, "CALLED_SEARCH_METHOD_CLICK"));
+        Event_INFO.add(new Event(12, "CALLED_SEARCH_METHOD_USED"));
+        Event_INFO.add(new Event(13, "CALLED_SEARCH_METHOD_UPVOTE"));
+        Event_INFO.add(new Event(14, "CODE_FILE_FOR_METHOD"));
 
     }
 
