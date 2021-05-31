@@ -49,7 +49,7 @@ public class FACERSearchService   {
         ArrayList methodNames = new ArrayList();
         try {
             FACERStage2RelatedMethodsMaha relatedMethodsEvaluator = new FACERStage2RelatedMethodsMaha();
-            JSONArray relatedMethods = relatedMethodsEvaluator.getRelatedMethods(methodId, 3, configurationComponent.getDatabaseURL());
+            JSONArray relatedMethods = relatedMethodsEvaluator.getRelatedMethods(methodId, 3, configurationComponent.getDatabaseURL(), configurationComponent.getResourcesFolderRootPath());
             if (relatedMethods != null) {
                 relatedSearchResults = new ArrayList();
                 int len = relatedMethods.size();
@@ -92,7 +92,7 @@ public class FACERSearchService   {
         CodeFile codeFile = new CodeFile();
         try {
             FACERStage2RelatedMethodsMaha relatedMethodsEvaluator = new FACERStage2RelatedMethodsMaha();
-            JSONObject codeFileJson = relatedMethodsEvaluator.getFileBody(methodId, configurationComponent.getDatabaseURL());
+            JSONObject codeFileJson = relatedMethodsEvaluator.getFileBody(methodId, configurationComponent.getDatabaseURL(), configurationComponent.getResourcesFolderRootPath());
             if (codeFileJson != null) {
                     codeFile = new Gson().fromJson(codeFileJson.toString(), CodeFile.class);
             }
@@ -106,7 +106,7 @@ public class FACERSearchService   {
         ArrayList methodNames = new ArrayList();
         try {
             FACERStage2RelatedMethodsMaha relatedMethodsEvaluator = new FACERStage2RelatedMethodsMaha();
-            JSONArray calledMethods = relatedMethodsEvaluator.getCalledMethods(methodId, configurationComponent.getDatabaseURL());
+            JSONArray calledMethods = relatedMethodsEvaluator.getCalledMethods(methodId, configurationComponent.getDatabaseURL(), configurationComponent.getResourcesFolderRootPath());
             if (calledMethods != null) {
                 relatedSearchResults = new ArrayList();
                 int len = calledMethods.size();
