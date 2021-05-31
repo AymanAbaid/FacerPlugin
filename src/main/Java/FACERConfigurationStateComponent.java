@@ -17,10 +17,7 @@ class FACERConfigurationStateComponent implements PersistentStateComponent<FACER
         static class State {
                 public State() {}
                 public String databaseURL;
-                public String stopwordsPath;
-                public String lucenePath;
-                public String logPath;
-                public String datasetRootPath;
+                public String resourcesRootPath;
         }
 
         @Override
@@ -37,33 +34,19 @@ class FACERConfigurationStateComponent implements PersistentStateComponent<FACER
         public static FACERConfigurationStateComponent getInstance() {
                 return ApplicationManager.getApplication().getComponent(FACERConfigurationStateComponent.class);
         }
-        public void updateConfigurations(String databaseURL, String stopwordsPath, String lucenePath, String logPath, String datasetRootPath) {
+        public void updateConfigurations(String databaseURL, String resourcesFolderRootPath) {
                 this.state.databaseURL = databaseURL;
-                this.state.stopwordsPath = stopwordsPath;
-                this.state.lucenePath = lucenePath;
-                this.state.logPath = logPath;
-                this.state.datasetRootPath = datasetRootPath;
+                this.state.resourcesRootPath = resourcesFolderRootPath;
         }
 
         public String getDatabaseURL() { return this.state.databaseURL; }
-        public String getStopwordsPath() {
-                return this.state.stopwordsPath;
+        public String getResourcesFolderRootPath() {
+                return this.state.resourcesRootPath;
         }
-        public String getLucenePath() { return this.state.lucenePath; }
-        public String getLogFilePath() { return this.state.logPath; }
-        public String getDatasetRootPath() { return this.state.datasetRootPath; }
-        public void resetDatasetRootPath() { this.state.datasetRootPath = null; }
 
         public boolean isConfigured() {
                 return isFieldConfigured(this.state.databaseURL)
-                        && isFieldConfigured(this.state.stopwordsPath)
-                        && isFieldConfigured(this.state.lucenePath)
-                        && isFieldConfigured(this.state.logPath)
-                        && isFieldConfigured(this.state.datasetRootPath);
-        }
-
-        public boolean isDatasetRootPathConfigured(){
-                return isFieldConfigured(this.state.datasetRootPath);
+                        && isFieldConfigured(this.state.resourcesRootPath);
         }
 
         private boolean isFieldConfigured(String field){

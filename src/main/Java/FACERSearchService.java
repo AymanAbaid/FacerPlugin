@@ -26,7 +26,7 @@ public class FACERSearchService   {
         ArrayList methodNames = new ArrayList();
         try {
             StudentsEvaluatorStage1 studentsEvaluator = new StudentsEvaluatorStage1();
-            JSONArray results = studentsEvaluator.searchFACERStage1Methods(query, 10, configurationComponent.getDatabaseURL(), configurationComponent.getStopwordsPath(), configurationComponent.getLucenePath());
+            JSONArray results = studentsEvaluator.searchFACERStage1Methods(query, 10, configurationComponent.getDatabaseURL(), configurationComponent.getResourcesFolderRootPath() + "\\stopwords.txt", configurationComponent.getResourcesFolderRootPath() + "\\LuceneSearchIndex");
             if (results != null) {
                 querySearchResults = new ArrayList();
                 relatedSearchResults = null;
