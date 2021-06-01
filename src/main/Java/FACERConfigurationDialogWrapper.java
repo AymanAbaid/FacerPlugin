@@ -145,7 +145,6 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
 
     @Override
     public boolean shouldCloseOnCross() {
-        FACERErrorDialog.showConfigurationCompleteError("Configuration Incomplete", "Please complete configuration to use FACER recommendations.");
         return true;
     }
 }
