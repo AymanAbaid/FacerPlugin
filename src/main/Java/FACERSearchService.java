@@ -26,7 +26,7 @@ public class FACERSearchService   {
         ArrayList methodNames = new ArrayList();
         try {
             StudentsEvaluatorStage1 studentsEvaluator = new StudentsEvaluatorStage1();
-            JSONArray results = studentsEvaluator.searchMethodsFACERAS(query, 30, configurationComponent.getDatabaseURL(), configurationComponent.getResourcesFolderRootPath());
+            JSONArray results = studentsEvaluator.searchMethodsFACERAS(query, 20, configurationComponent.getDatabaseURL(), configurationComponent.getResourcesFolderRootPath());
             if (results != null) {
                 querySearchResults = new ArrayList();
                 relatedSearchResults = null;
