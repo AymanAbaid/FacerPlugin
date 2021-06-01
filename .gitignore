@@ -6,3 +6,4 @@
 !/build/distributions
 /build/distributions/*
 !/build/distributions/FacerPlugin-1.0-SNAPSHOT.zip
+!/build/distributions/FacerPlugin-1.0-SNAPSHOT-DB-CONFIGURED.zip
