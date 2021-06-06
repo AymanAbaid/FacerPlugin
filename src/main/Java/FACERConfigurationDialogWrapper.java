@@ -41,30 +41,31 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
 
         // database url information
 
-        JTextPane databaseUrlLabel = new JTextPane();
-        StyledDocument databaseUrlLabelDoc = (StyledDocument) databaseUrlLabel.getDocument();
+        if (!configurationComponent.isDbHardcoded) {
+            JTextPane databaseUrlLabel = new JTextPane();
+            StyledDocument databaseUrlLabelDoc = (StyledDocument) databaseUrlLabel.getDocument();
 
-        try {
-            databaseUrlLabelDoc.insertString(databaseUrlLabelDoc.getLength(), "Database URL Information\n", bold);
-            databaseUrlLabelDoc.insertString(databaseUrlLabelDoc.getLength(), "This URL will be used to access FACER database for recommendations.\n", normal);
-            databaseUrlLabelDoc.insertString(databaseUrlLabelDoc.getLength(), "URL can be of the format:\n", normal);
-            databaseUrlLabelDoc.insertString(databaseUrlLabelDoc.getLength(), "\"jdbc:mysql://localhost<:port>/<database_name>?useSSL=false&user=<username>&password=<password>\"", normal);
+            try {
+                databaseUrlLabelDoc.insertString(databaseUrlLabelDoc.getLength(), "Database URL Information\n", bold);
+                databaseUrlLabelDoc.insertString(databaseUrlLabelDoc.getLength(), "This URL will be used to access FACER database for recommendations.\n", normal);
+                databaseUrlLabelDoc.insertString(databaseUrlLabelDoc.getLength(), "URL can be of the format:\n", normal);
+                databaseUrlLabelDoc.insertString(databaseUrlLabelDoc.getLength(), "\"jdbc:mysql://localhost<:port>/<database_name>?useSSL=false&user=<username>&password=<password>\"", normal);
 
-        } catch (BadLocationException e) {
-            e.printStackTrace();
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+            }
+
+            databaseUrlLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            dialogPanel.add(databaseUrlLabel);
+
+            databaseURL.setAlignmentX(Component.LEFT_ALIGNMENT);
+            databaseURL.setText(configurationComponent.getDatabaseURL());
+
+            dialogPanel.add(databaseURL);
+            dialogPanel.add(Box.createVerticalStrut(10));
         }
 
-        databaseUrlLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        dialogPanel.add(databaseUrlLabel);
-
-        databaseURL.setAlignmentX(Component.LEFT_ALIGNMENT);
-        databaseURL.setText(configurationComponent.getDatabaseURL());
-        dialogPanel.add(databaseURL);
-        dialogPanel.add(Box.createVerticalStrut(10));
-
         // resources folder root path information
-
-        // database url information
 
         JTextPane resourcesRootPathLabel = new JTextPane();
         StyledDocument resourcesRootPathLabelDoc = (StyledDocument) resourcesRootPathLabel.getDocument();
@@ -130,7 +131,8 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
 
     @Override
     protected void doOKAction() {
-        if (databaseURL.getText().isEmpty()
+        // check db field for empty only if db is not hardcoded
+        if ((!configurationComponent.isDbHardcoded && databaseURL.getText().isEmpty())
                 || resourcesRootPath.getText().isEmpty()) {
             FACERErrorDialog.showConfigurationCompleteError("Configuration Incomplete", "Please complete configuration to use FACER recommendations.");
         } else {

@@ -12,6 +12,9 @@ import org.jetbrains.annotations.Nullable;
 
 class FACERConfigurationStateComponent implements PersistentStateComponent<FACERConfigurationStateComponent.State> {
 
+        public final boolean isDbHardcoded = false;
+        final String DB_URL_LIVE = "jdbc:mysql://203.135.63.70:3306/faceremserepopoint5?useSSL=false&user=shamsa&password=Mysql123!@#";
+
         public State state = new State();
 
         static class State {
@@ -35,7 +38,7 @@ class FACERConfigurationStateComponent implements PersistentStateComponent<FACER
                 return ApplicationManager.getApplication().getComponent(FACERConfigurationStateComponent.class);
         }
         public void updateConfigurations(String databaseURL, String resourcesFolderRootPath) {
-                this.state.databaseURL = databaseURL;
+                this.state.databaseURL = isDbHardcoded ? DB_URL_LIVE : databaseURL;
                 this.state.resourcesRootPath = resourcesFolderRootPath;
         }
 
@@ -45,7 +48,8 @@ class FACERConfigurationStateComponent implements PersistentStateComponent<FACER
         }
 
         public boolean isConfigured() {
-                return isFieldConfigured(this.state.databaseURL)
+                // either db is hardcoded or configured
+                return (isDbHardcoded || isFieldConfigured(this.state.databaseURL))
                         && isFieldConfigured(this.state.resourcesRootPath);
         }
 
