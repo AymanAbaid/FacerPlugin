@@ -42,7 +42,7 @@ class FACERConfigurationStateComponent implements PersistentStateComponent<FACER
                 this.state.resourcesRootPath = resourcesFolderRootPath;
         }
 
-        public String getDatabaseURL() { return this.state.databaseURL; }
+        public String getDatabaseURL() { return isDbHardcoded ? DB_URL_LIVE : this.state.databaseURL; }
         public String getResourcesFolderRootPath() {
                 return this.state.resourcesRootPath;
         }
