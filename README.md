@@ -73,7 +73,7 @@ To test the project in the system installed instance of Android Studio, run the 
 In order to install this plugin snapshot in Android Studio, launch Android Studio and go to **File > Settings > Plugins > Settings Icon > Install Plugin from Disk...**, and choose the FACER-AS Plugin Package zip file. Restart Android Studio to show the FACER option in top Menu bar. See [Usage](#usage) for functional details.
 
 ## Plugin Configuration
-On first launch of FACER-AS, the Configuration Setup dialog will appears (or use FACER on menu bar and select Configuration option). Add the URL of database created during FACER setup, the path to Lucene Index folder, the stopwords.txt file path, and a destination path for the User Interaction logs. After the setup is complete, click Ok option to update the plugin configuration settings.    
+On first launch of FACER-AS, the Configuration Setup dialog will appears (or use FACER on menu bar and select Configuration option). Add the path to the resources root folder that we extracted earlier. This root folder must contain the Dataset folder, LuceneIndex folder and the stopwords.txt file provided in the FACER-AS Resources. This folder will also be used as a destination for the User Interaction logs. After the setup is complete, click Ok option to update the plugin configuration settings.    
 
 ![ui_config_2021_11_06](https://user-images.githubusercontent.com/80214279/121684090-b34ed700-cad7-11eb-8da5-bc48652259af.png)
     
