@@ -1,11 +1,14 @@
 
 
 
+
 # FACER-AS
 
 FACER-AS is an Android Studio plugin designed to provide an interface for [FACER](https://github.com/shamsa-abid/FACER_Artifacts), which is a an API usage-based code-recommender for Java. Please follow the steps below for detailed setup guidelines.
-In order to do a quick setup and install FACER-AS plugin in your Android Studio, please refer to [FACER-AS Quick Setup](#facer-as-quick-setup). To setup the IntelliJ IDEA project of FACER-AS, please review [FACER-AS IntelliJ IDEA Project Setup](#facer-as-intellij-idea-project-setup).
+In order to do a quick setup and install FACER-AS plugin in Android Studio, refer to [FACER-AS Quick Setup](#facer-as-quick-setup). To setup the IntelliJ IDEA project of FACER-AS, please review [FACER-AS IntelliJ IDEA Project Setup](#facer-as-intellij-idea-project-setup).
 
+## FACER-AS Plugin Demo
+The setup and installation demo can be viewed on YouTube [here](https://www.youtube.com/watch?v=YPwwXyXXSW0).
 ## FACER-AS Quick Setup 
 
 ### Pre-requisites
@@ -19,7 +22,7 @@ In order to do a quick setup, download the following:
 1. FACER-AS Plugin Package (https://bit.ly/2RNzejs)
 2. FACER-AS Resources (https://bit.ly/3zltzSE)
 
-Extract the contents of the FACER-AS Resources RAR file to a folder in your system. The path to this folder will be configured in FACER-AS (see [Plugin Configuration](#plugin-configuration)) for input and output resources location.
+Extract the contents of the FACER-AS Resources RAR file to a folder in local file system. The path to this folder will be configured in FACER-AS (see [Plugin Configuration](#plugin-configuration)) for input and output resources location.
 
 ### Installation
 
@@ -38,11 +41,11 @@ In order to execute the project, download the following:
 
 1. FACER-AS Resources (https://bit.ly/3zltzSE)
 
-Extract FACER-AS Resources to a folder in your system. The path to this folder will be configured in FACER-AS (see [Plugin Configuration](#plugin-configuration)) for input and output resources location.
+Extract FACER-AS Resources to a folder in local file system. The path to this folder will be configured in FACER-AS (see [Plugin Configuration](#plugin-configuration)) for input and output resources location.
 
 ### Project Setup
 
-Clone the repository and import into IntelliJ IDEA CE as an existing project. To setup the correct IDE path for  running the project on Android Studio, go to the build.gradle file in the root folder of the project and set the ideDirectory variable for MacOS as:
+Clone the repository and import into IntelliJ IDEA CE as an existing project. To setup the correct IDE path for running the project on Android Studio, go to the build.gradle file in the root folder of the project and set the ideDirectory variable for MacOS as:
 
 ``` java
 runIde {
@@ -61,8 +64,8 @@ runIde {
 
 #### *With Test Instance of IDE*
 
-To test the project in a test instance of Android Studio using the "runIde" Gradle task, enable Gradle Tool Window in IntelliJ IDEA CE. Go to **View > Tool Windows > Gradle** option if it is not already visible in your IntelliJ IDEA, and run the task under **<Project> > Tasks > intellij > runIde**. See [Usage](#usage) for functional details.
-**Note:** This is a separate test instance and your regular Android Studio will not have the plugin installed in this manner. 
+To test the project in a test instance of Android Studio using the "runIde" Gradle task, enable Gradle Tool Window in IntelliJ IDEA CE. Go to **View > Tool Windows > Gradle** option if it is not already visible in the IntelliJ IDEA, and run the task under **<Project> > Tasks > intellij > runIde**. See [Usage](#usage) for functional details.
+**Note:** This is a separate test instance and the regular Android Studio will not have the plugin installed in this manner. 
 
 #### *With Installed Instance of IDE*
 
@@ -76,7 +79,38 @@ On first launch of FACER-AS, the Configuration Setup dialog will appears (or use
     
 ## Usage
 
-You can select any text in the editor and select FACER > Enable FACER option or use Ctrl + 1 to engage the plugin. This will launch a configuration window to setup the database URL, Lucene Index folder path (see [FACER](https://github.com/shamsa-abid/FACER_Artifacts) for details), a stopwords.txt file path containing stopwords for dataset, and the destination path for the user interaction logs file. After you complete the configuration step, a popup will appear with the option **Get FACER recommendations** will appear. Select the option to view recommendation results and explore the plugin further.
-![ui_stage_1_2021_11_06](https://user-images.githubusercontent.com/80214279/121686173-46890c00-cada-11eb-9c31-d225bc5091e4.png)
-    
-<!--   youtube link, drive link, add usage for stage 2, code file, called methods, usage   -->
+### Stage 1: Query Search
+Select any text in the editor and select FACER > Enable FACER option or use Ctrl + 1 to engage the plugin. This will launch a configuration window to setup the database URL, Lucene Index folder path (see [FACER](https://github.com/shamsa-abid/FACER_Artifacts) for details), a stopwords.txt file path containing stopwords for dataset, and the destination path for the user interaction logs file. After completing the configuration step, a popup will appear with the option **Get FACER recommendations** will appear. Select the option to view recommendation results. From the "Query Results" list, double click any method name to view method body in a new tab.
+
+![ui_stage_1_2021_11_06](https://user-images.githubusercontent.com/80214279/121689714-63bfd980-cade-11eb-95bb-bcbf97d3385c.png)
+
+### Stage 2: Related Methods Search
+In the selected method tab in Code View pane, click on the Magic Wand icon to get related method recommendations for the selected method. The list of related methods is show in the "Related Methods" list. Double click any method name from the list to view method body in new tab.
+   ![ui_stage_2_2021_11_06](https://user-images.githubusercontent.com/80214279/121698506-82769e00-cae7-11eb-9e7d-ce4896161395.png)
+
+### Code Integration
+To integrate a method body into the user project, click the Clipboard icon from selected method tab to copy and paste the method directly into the active code file of the editor. See the image above in [Stage 2: Related Methods Search](#stage-2-related-methods-search).
+
+### View Code File
+In the selected method tab in Code View pane, click on the View Code icon to open the complete code file of the selected method in a new tab.
+
+![ui_code_file_2021_11_06](https://user-images.githubusercontent.com/80214279/121698503-82769e00-cae7-11eb-9931-b07c4fd518ad.png)
+
+
+### Called Methods
+In the selected method tab in Code View pane, click on the Show Called Methods icon to get a list of all the methods called from within the selected methods. The results are displayed in the "Related Methods" list. Double click any method name to open the method body in a new tab.
+
+![ui_called_methods_upvote_2021_11_06](https://user-images.githubusercontent.com/80214279/121698499-80acda80-cae7-11eb-8a75-bbe7d512f157.png)
+
+### Upvote Related / Called Methods
+In the selected method tab in Code View pane, click on the Upvote Method icon to upvote the selected method. This feature is available for Related and Called methods.
+
+## Research Referencing
+
+Details of the FACER system can be found in the following research papers:
+
+1. Shamsa Abid, Shafay Shamail, Hamid Abdul Basit et al. FACER: An API Usage-based Code-example Recommender for Opportunistic Reuse, 04 March 2021, PREPRINT (Version 1) available at Research Square [https://doi.org/10.21203/rs.3.rs-260432/v1]  
+
+2. Abid, S. (2019, August). Recommending related functions from API usage-based function clone structures. In _Proceedings of the 2019 27th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering_ (pp. 1193-1195).  
+
+If you use FACER-AS plugin for your research, please cite these articles.
