@@ -103,7 +103,7 @@ In the selected method tab in Code View pane, click on the Show Called Methods i
 ![ui_called_methods_upvote_2021_11_06](https://user-images.githubusercontent.com/80214279/121698499-80acda80-cae7-11eb-8a75-bbe7d512f157.png)
 
 ### Upvote Related / Called Methods
-In the selected method tab in Code View pane, click on the Upvote Method icon to upvote the selected method. This feature is available for Related and Called methods.
+In the selected method tab in Code View pane, click on the Upvote Method icon to upvote the selected method. This feature is available for Related and Called methods. See the image above in [Called Methods](#called-methods).
 
 ## Research Referencing
 
