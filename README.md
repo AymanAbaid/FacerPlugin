@@ -76,7 +76,7 @@ On first launch of FACER-AS, the Configuration Setup dialog will appears (or use
     
 ## Usage
 
-You can select any text in the editor and select FACER > Enable FACER option or use Ctrl + 1 to engage the plugin. This will launch a configuration window to setup the database URL, Lucene Index folder path (see [FACER](https://github.com/shamsa-abid/FACER_Artifacts) for details), a stopwords.txt file path containing stopwords for dataset, and the destination path for the user interaction logs file. After you complete the configuration step, a popup will appear with the option **Get FACER recommendations* will appear. Select the option to view recommendation results and explore the plugin further.
+You can select any text in the editor and select FACER > Enable FACER option or use Ctrl + 1 to engage the plugin. This will launch a configuration window to setup the database URL, Lucene Index folder path (see [FACER](https://github.com/shamsa-abid/FACER_Artifacts) for details), a stopwords.txt file path containing stopwords for dataset, and the destination path for the user interaction logs file. After you complete the configuration step, a popup will appear with the option **Get FACER recommendations** will appear. Select the option to view recommendation results and explore the plugin further.
 ![ui_stage_1_2021_11_06](https://user-images.githubusercontent.com/80214279/121686173-46890c00-cada-11eb-9c31-d225bc5091e4.png)
     
-<!--   youtube link, drive link, add usage for stage 2, code file, called methods, usage   -->!
+<!--   youtube link, drive link, add usage for stage 2, code file, called methods, usage   -->
