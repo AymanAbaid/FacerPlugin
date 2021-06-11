@@ -75,7 +75,7 @@ public class FACERConfigurationDialogWrapper extends DialogWrapper {
             resourcesRootPathLabelDoc.insertString(resourcesRootPathLabelDoc.getLength(), "This path will be used to for the following resources for FACER method recommendations:\n", normal);
             resourcesRootPathLabelDoc.insertString(resourcesRootPathLabelDoc.getLength(), "Input:\n", italic);
             resourcesRootPathLabelDoc.insertString(resourcesRootPathLabelDoc.getLength(), "\"stopwords.txt\" file\n", normal);
-            resourcesRootPathLabelDoc.insertString(resourcesRootPathLabelDoc.getLength(), "\"LuceneSearchIndex\" folder\n", normal);
+            resourcesRootPathLabelDoc.insertString(resourcesRootPathLabelDoc.getLength(), "\"LuceneIndex\" folder\n", normal);
             resourcesRootPathLabelDoc.insertString(resourcesRootPathLabelDoc.getLength(), "\"Dataset\" folder\n", normal);
             resourcesRootPathLabelDoc.insertString(resourcesRootPathLabelDoc.getLength(), "Output:\n", italic);
             resourcesRootPathLabelDoc.insertString(resourcesRootPathLabelDoc.getLength(), "\"log.csv\" file for user interaction logging\n", normal);
