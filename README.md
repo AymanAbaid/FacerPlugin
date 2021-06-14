@@ -105,7 +105,7 @@ In the selected method tab in Code View pane, click on the Show Called Methods i
 ### Upvote Related / Called Methods
 In the selected method tab in Code View pane, click on the Upvote Method icon to upvote the selected method. This feature is available for Related and Called methods. See the image above in [Called Methods](#called-methods).
 
-## Research Referencing
+## Related Research
 
 Details of the FACER system can be found in the following research papers:
 
