@@ -4,7 +4,11 @@ plugins {
 }
 
 group 'FacerPlugin'
-version '1.0-SNAPSHOT'
+// convention:
+// version '#.#0' ---> db url configurable
+// version '#.#1' ---> db url point 3 configured
+// version '#.#2' ---> db url point 5 configured
+version '1.02'
 
 sourceCompatibility = 1.8
 
@@ -24,8 +28,8 @@ intellij {
 }
 
 runIde{
-//    ideDirectory 'C:/Program Files/Android/Android Studio/'
-    ideDirectory '/Applications/Android Studio.app/Contents/'
+    ideDirectory 'C:/Program Files/Android/Android Studio/'
+//    ideDirectory '/Applications/Android Studio.app/Contents/'
 
 
 }

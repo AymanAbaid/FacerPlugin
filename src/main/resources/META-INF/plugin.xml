@@ -1,7 +1,7 @@
 <idea-plugin>
-    <id>FacerPlugin.FacerPlugin</id>
+    <id>FACER-AS</id>
     <name>FACER</name>
-    <vendor>FACER co</vendor>
+    <vendor>SERL, LUMS</vendor>
 
     <!--<description><![CDATA[-->
     <!--Enter short description for your plugin here.<br>-->
