@@ -6,9 +6,9 @@ plugins {
 group 'FACER-AS'
 // convention:
 // version '#.#0' ---> db url configurable
-// version '#.#1' ---> db url point 3 configured
-// version '#.#2' ---> db url point 5 configured
-version '1.00'
+// version '#.#3' ---> db url point 3 configured
+// version '#.#5' ---> db url point 5 configured
+version '1.05'
 
 sourceCompatibility = 1.8
 
