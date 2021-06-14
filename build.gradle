@@ -3,12 +3,12 @@ plugins {
     id 'org.jetbrains.intellij' version '0.7.2'
 }
 
-group 'FacerPlugin'
+group 'FACER-AS'
 // convention:
 // version '#.#0' ---> db url configurable
 // version '#.#1' ---> db url point 3 configured
 // version '#.#2' ---> db url point 5 configured
-version '1.02'
+version '1.00'
 
 sourceCompatibility = 1.8
 
