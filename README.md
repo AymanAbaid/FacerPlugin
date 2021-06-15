@@ -8,7 +8,7 @@ FACER-AS is an Android Studio plugin designed to provide an interface for [FACER
 In order to do a quick setup and install FACER-AS plugin in Android Studio, refer to [FACER-AS Quick Setup](#facer-as-quick-setup). To setup the IntelliJ IDEA project of FACER-AS, please review [FACER-AS IntelliJ IDEA Project Setup](#facer-as-intellij-idea-project-setup).
 
 ## FACER-AS Plugin Demo
-The setup and installation demo can be viewed on YouTube [here](https://www.youtube.com/watch?v=YPwwXyXXSW0).
+The setup and installation demo can be viewed on YouTube [here](https://youtu.be/3yN-39wP_FU).
 ## FACER-AS Quick Setup 
 
 ### Pre-requisites
