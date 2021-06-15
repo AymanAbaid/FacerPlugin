@@ -19,7 +19,7 @@ To plug and play FACER-AS, download and install the following dependencies:
 ### Resources
 In order to do a quick setup, download the following:
 
-1. FACER-AS Plugin Package (https://bit.ly/2RNzejs)
+1. FACER-AS Plugin Package (https://bit.ly/3zuxyMP)
 2. FACER-AS Resources (https://bit.ly/3zltzSE)
 
 Extract the contents of the FACER-AS Resources RAR file to a folder in local file system. The path to this folder will be configured in FACER-AS (see [Plugin Configuration](#plugin-configuration)) for input and output resources location.
