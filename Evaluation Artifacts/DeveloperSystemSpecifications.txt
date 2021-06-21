@@ -1,0 +1,5 @@
+CPU: Intel i5 3rd Generation microprocessor
+RAM: 8 GB
+Storage: 1 TB
+Graphics: Nvidea GeForce GT 710
+Android studio: 3.1
