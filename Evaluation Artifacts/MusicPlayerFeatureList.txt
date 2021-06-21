@@ -1,0 +1,38 @@
+ Tab navigation system
+ Custom thumbnails at dashboard
+ Facebook adds
+ Playlists
+ Bluetooth music playing
+ Connect to external audio
+ Background playing with notification
+ Server holdings
+ Sql lite database
+ Firebase database for logins
+ Inapp purchase
+ Shared preferences
+ Recently added music playlist (auto generated)
+ Inapp review
+ Callbacks
+ MVVM architecture
+ Live music playing (from API)
+ Premium music
+ Music Download
+ Music share options
+ Remove files(songs)
+ Create directories(local)
+ Download music on Asynchronous
+ Services and handlers
+ Push Notifications
+ Intent filter for internal music intent
+ Multiple themes
+ Song search(local)
+ Song search(live)
+ History
+ Community page (for future update)
+ Music Sort
+ Database backup option
+ App settings
+ No multiple modules for project
+ App widgets (3 x 5)
+ Lock screen widget permissions
+ Music play handling during calls
