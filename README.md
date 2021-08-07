@@ -4,6 +4,7 @@
 
 # FACER-AS
 [![DOI](https://zenodo.org/badge/345393603.svg)](https://zenodo.org/badge/latestdoi/345393603)
+
 FACER-AS is an Android Studio plugin designed to provide an interface for [FACER](https://github.com/shamsa-abid/FACER_Artifacts), which is a an API usage-based code-recommender for Java. Please follow the steps below for detailed setup guidelines.
 In order to do a quick setup and install FACER-AS plugin in Android Studio, refer to [FACER-AS Quick Setup](#facer-as-quick-setup). To setup the IntelliJ IDEA project of FACER-AS, please review [FACER-AS IntelliJ IDEA Project Setup](#facer-as-intellij-idea-project-setup).
 
