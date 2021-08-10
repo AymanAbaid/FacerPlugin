@@ -20,7 +20,7 @@ To plug and play FACER-AS, download and install the following dependencies:
 In order to do a quick setup, download the following:
 
 1. FACER-AS Plugin Installer Package (https://github.com/AymanAbaid/FacerPlugin/blob/master/build/distributions/FACER-AS-1.03.zip)
-2. FACER-AS Resources (https://bit.ly/3zltzSE)
+2. FACER-AS Resources - If you have already downloaded Resources from Zenodo then you don't need to download this again. Otherwise download from https://bit.ly/3zltzSE
 
 Extract the contents of the FACER-AS Resources RAR file to a folder in local file system. The path to this folder will be configured in FACER-AS (see [Plugin Configuration](#plugin-configuration)) for input and output resources location.
 
@@ -124,3 +124,6 @@ Details of the FACER system can be found in the following research papers:
 2. Abid, S. (2019, August). Recommending related functions from API usage-based function clone structures. In _Proceedings of the 2019 27th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering_ (pp. 1193-1195).  
 
 If you use FACER-AS plugin for your research, please cite these articles.
+    
+## Cite this Code: [![DOI](https://zenodo.org/badge/345393603.svg)](https://zenodo.org/badge/latestdoi/345393603)
+
