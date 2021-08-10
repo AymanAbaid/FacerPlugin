@@ -105,6 +105,16 @@ In the selected method tab in Code View pane, click on the Show Called Methods i
 ### Upvote Related / Called Methods
 In the selected method tab in Code View pane, click on the Upvote Method icon to upvote the selected method. This feature is available for Related and Called methods. See the image above in [Called Methods](#called-methods).
 
+    
+## Evaluation
+    
+In order to evaluate the performance of FACER-AS, we conduct a user study involving one professional developer working on a live commercial application. The developer uses FACER-AS for searching method recommendations and we collect the plugin usage logs to infer results based on predefined performance metrics. The repository subfolder named **Evaluation Artifacts** contains resources related to the evlaluation study for FACER-AS described below.
+    
+1. **DeveloperSystemSpecifications.txt** - contains information about the system specifications of developer's workstation. We report these specifications to account for any performance deviations that may occur while replicating the results on a different system.
+2. **MusicPlayerFeatureList.txt** - outlines the list of features the developer worked on while using FACER-AS as part of the evaluation study.
+3. **plugin_usage_log.csv** - contains user interaction logs recorded as various features of FACER-AS are activated and return results.
+4. **FACER-AS Feedback.pdf** - contains the results of the feedback provided by the developer at the end of the study.
+    
 ## Related Research
 
 Details of the FACER system can be found in the following research papers:
