@@ -19,14 +19,14 @@ To plug and play FACER-AS, download and install the following dependencies:
 ### Resources
 In order to do a quick setup, download the following:
 
-1. FACER-AS Plugin Package (https://bit.ly/3zuxyMP)
+1. FACER-AS Plugin Installer Package (https://github.com/AymanAbaid/FacerPlugin/blob/master/build/distributions/FACER-AS-1.03.zip)
 2. FACER-AS Resources (https://bit.ly/3zltzSE)
 
 Extract the contents of the FACER-AS Resources RAR file to a folder in local file system. The path to this folder will be configured in FACER-AS (see [Plugin Configuration](#plugin-configuration)) for input and output resources location.
 
 ### Installation
 
-In order to install this plugin snapshot in Android Studio, launch Android Studio and go to **File > Settings > Plugins > Settings Icon > Install Plugin from Disk...**, and choose the FACER-AS Plugin Package zip file downloaded earlier. Restart Android Studio to show the FACER option in top Menu bar. See [Usage](#usage) for functional details.
+In order to install this plugin snapshot in Android Studio, launch Android Studio and go to **File > Settings > Plugins > Settings Icon > Install Plugin from Disk...**, and choose the FACER-AS Plugin Installer Package zip file downloaded earlier. Restart Android Studio to show the FACER option in top Menu bar. See [Usage](#usage) for functional details.
 
 ## FACER-AS IntelliJ IDEA Project Setup 
 
