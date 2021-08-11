@@ -125,4 +125,5 @@ Details of the FACER system can be found in the following research papers:
 
 If you use FACER-AS plugin for your research, please cite these articles.
     
+To cite the FACER-AS plugin, code, or artifacts use: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5176816.svg)](https://doi.org/10.5281/zenodo.5176816)    
 
